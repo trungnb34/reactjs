@@ -12,5 +12,16 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('admin.layout.layout');
+});
+
+Route::get('/post', function () {
+    return view('admin.posts.posts');
+});
+Route::get('/list-post', function () {
+    return view('admin.list-post.list-post');
+});
+
+Route::get('/profile', function () {
+    return view('admin.profiles.profiles');
 });
