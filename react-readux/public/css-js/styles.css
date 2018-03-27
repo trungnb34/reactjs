@@ -6,7 +6,27 @@
 body{
     padding: 0!important;
 }
-
+.landingPage {
+    padding: 0px !important;
+}
+.btn_login {
+    border: none !important;
+    margin-top: 7px !important;
+}
+.text a:hover, .text a:active, .text a:visited{
+    color: white;
+}
+.css-style {
+    font-size: 8pt;
+}
+.wrap_footer {
+    border-top: none !important;
+}
+#footer-copyright .container {
+    text-align: center; 
+    font-size: 12px;
+    padding: 0px !important;
+}
 table {
     border-collapse: collapse;
     border-spacing: 0
