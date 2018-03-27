@@ -18,6 +18,7 @@ class PostSeeder extends Seeder
             DB::table('posts')->insert([
                 'user_id' => $faker->numberBetween(1, 10),
                 'title' => $faker->firstName .' '.$faker->lastName,
+                'slug' => str_slug($faker->name),
                 'content' => $faker->text,
                 'abstract' => $faker->word,
                 'isOpenComment' => 1,

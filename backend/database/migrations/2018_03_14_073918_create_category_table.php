@@ -16,7 +16,9 @@ class CreateCategoryTable extends Migration
         Schema::create('categorys', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('slug');
             $table->integer('status');
+            $table->string('avatar')->nullable();
             $table->integer('parent_id')->nullable()->unsigned();
             $table->foreign('parent_id')->references('id')->on('categorys')->onDelete('cascade');
             $table->timestamps();

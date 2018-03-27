@@ -18,7 +18,8 @@ class TagSeeder extends Seeder
             DB::table('tags')->insert(
                 [
                     'name' => $faker->name,
-                    'status' => 1
+                    'status' => 1,
+                    'slug' => str_slug($faker->name)
                 ]
             );
         }
