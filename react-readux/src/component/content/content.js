@@ -3,6 +3,9 @@ import Menu from "../commons/menu/menu";
 import ListPost from "../commons/listPost/listpost";
 import ItemPost from "./main-content";
 import Footer from "../commons/footer/footer";
+import Detail from "./detail";
+import ItemRelatedPost from "./itemRelatedPost";
+
 class Content extends Component {
     render() {
         return(

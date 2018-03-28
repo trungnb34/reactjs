@@ -27,6 +27,9 @@ body{
     font-size: 12px;
     padding: 0px !important;
 }
+#footer>div>div {
+    padding-top: 15px;
+}
 table {
     border-collapse: collapse;
     border-spacing: 0

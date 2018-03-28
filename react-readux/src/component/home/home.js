@@ -8,12 +8,10 @@ class Home extends Component {
             <div className="container-fluid landingPage">
                 <Header />
                 <ListCate />
-                <ListCate />
-                <ListCate />
                 <footer>
                     <div id="footer-copyright">
                         <div className="container">
-                            <a href="http://beetsoft.com.vn/" className="left copyright" target="_blank">Copyright © Beetsoft Co., Ltd</a>
+                            <a href="#" className="left copyright">Copyright © Beetsoft Co., Ltd</a>
                         </div>
                     </div>
                 </footer>

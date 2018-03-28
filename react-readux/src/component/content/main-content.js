@@ -4,9 +4,9 @@ import ItemPost from "./itemPost";
 class MainContent extends Component {
     render() {
         return(
-            <div id="main" class="regular category_detail">
+            <div id="main" className="regular category_detail">
                 <div>
-                    <h1 class="find_with">TIẾNG NHẬT </h1>
+                    <h1 className="find_with">TIẾNG NHẬT </h1>
                 </div>
                 <br />
                 <ItemPost />

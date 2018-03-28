@@ -17,14 +17,14 @@ class ItemPost extends Component {
                     </div>
                     <div className="post-entry">
                         <p>Hiện nay trong công việc, ngoài các công cụ giao tiếp trực tiếp như Skype, ChatWork, Slack,...thì phương pháp giao tiếp truyền thống E-mail là một phương tiện không thể t...</p>
-                    </div>                                                                                                                                                                         
+                    </div>
                     <div className="post-meta">
                         <span className="meta-info">
                                     2016-08-24 14:46:14
                             đăng bởi <a href="#" title="Posts by Super Administrator" rel="author">Super Administrator</a>
                         </span>
                     </div>
-                    <div class="post-share">
+                    <div className="post-share">
                         <a target="_blank" href="#"><i className="fa fa-facebook"></i></a>
                         <a target="_blank" href="#"><i className="fa fa-twitter"></i></a>
                         <a target="_blank" href="#"><i className="fa fa-google-plus"></i></a>
