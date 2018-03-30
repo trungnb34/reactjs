@@ -1,11 +1,30 @@
 import React, {Component} from "react";
+import * as ListTagAction from "../../../actions/listTag";
+import {connect} from "react-redux";
+import {Link} from "react-router";
 
 class ListTag extends Component {
+
+    componentDidMount() {
+        this.props.loadListTag();
+    }
     render() {
         return(
-            <a href="http://blog.beetsoft.com.vn/library/post/tag/6" className="tag-link-4 tag-link-position-1 css-style" title="1 topic">Ruby </a>
+            <div  className="tagcloud">
+            {
+                this.props.tags.tags.map((tag, index) => {
+                    return (
+                        <Link to={"/tag/" + tag.slug} key={index} className="tag-link-4 tag-link-position-1 css-style" title="1 topic">{tag.name} </Link>
+                    )
+                })
+            }
+            </div>
         )
     }
 }
-
-export default ListTag;
+function mapStateToProps(state) {
+    return {
+        tags: state.ListTagReducer
+    };
+}
+export default connect(mapStateToProps, ListTagAction)(ListTag);

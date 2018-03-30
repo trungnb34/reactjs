@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {Link} from "react-router";
 
 class TopPost extends Component {
     render() {
@@ -6,13 +7,13 @@ class TopPost extends Component {
             <li>
                 <div className="side-item">
                     <div className="side-image">
-                        <a href="#" rel="bookmark">
-                            <img width="500" height="380" src="http://blog.beetsoft.com.vn/files/files/reaml.png" alt="iOS Databases: SQLite vs. Core Data vs. Realm" />
-                        </a>
+                        <Link to={"/post/" + this.props.post.slug} rel="bookmark">
+                            <img width="500" height="380" src={this.props.post.avatar} alt="iOS Databases: SQLite vs. Core Data vs. Realm" />
+                        </Link>
                     </div>
                     <div className="side-item-text">
                         <h4>
-                            <a href="#" rel="bookmark" className="title">iOS Databases: SQLite vs. Core Data vs. Realm</a>
+                            <Link to={"/post/" + this.props.post.slug} rel="bookmark" className="title">{this.props.post.title} </Link>
                         </h4>
                         <span className="side-item-meta"></span>
                     </div>
@@ -20,5 +21,10 @@ class TopPost extends Component {
             </li>
         )
     }
+}
+function mapStateToProps(state) {
+    return {
+        tags: state.TopPostReducer
+    };
 }
 export default TopPost;

@@ -7,6 +7,32 @@ import Detail from "./detail";
 import ItemRelatedPost from "./itemRelatedPost";
 
 class Content extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            param: '',
+            value: ''
+        }
+    }
+    componentDidMount () {
+        // console.log(this.props);
+        // this.getParam();
+
+    }
+    componentDidUpdate() {
+        // console.log(this.props);
+        // this.getParam();
+    }
+
+    getParam() {
+        let param = this.props.location.pathname.split('/');
+        this.setState({
+            param: param[1],
+            value: param[2]
+        })
+        // console.log(param[1]);
+    }
+
     render() {
         return(
             <div className="wapper">

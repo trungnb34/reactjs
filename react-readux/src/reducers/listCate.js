@@ -1,12 +1,11 @@
-import cate from "../service/category.service";
+const initalState = {
+    cates: []
+}
 
-const ListCateReducer = (state = {}, action) => {
+const ListCateReducer = (state = initalState, action) => {
     switch(action.type) {
         case 'GET_ALL':
-            return cate.getAllCate.then(cates => {
-                return cates.data.cates;
-            })
-            break;
+            return {...state, cates : action.cates};
         default:
             return state;
     }

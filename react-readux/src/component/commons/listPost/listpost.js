@@ -1,8 +1,14 @@
 import React, {Component} from "react";
 import TopPost from "./toppost";
 import ListTag from "./listtag";
+import {connect} from "react-redux";
+import * as TopPostAction from "../../../actions/topPost";
+
 
 class ListPost extends Component {
+    componentDidMount() {
+        this.props.loadAddTopPost();
+    }
     render() {
         return(
             <aside id="sidebar">
@@ -11,20 +17,28 @@ class ListPost extends Component {
                         <span>BÀI VIẾT MỚI NHẤT</span>
                     </h4>
                     <ul className="side-newsfeed">
-                        <TopPost />
+                        {
+                            this.props.topPosts.posts.map((post, index) => {
+                                return (
+                                    <TopPost key={index} post={post}/>
+                                )
+                            })
+                        }
                     </ul>
                 </div>
                 <div id="tag_cloud-2" className="widget widget_tag_cloud">
                     <h4 className="widget-heading">
                         <span>THẺ TAG</span>
                     </h4>
-                    <div className="tagcloud">
-                        <ListTag />
-                    </div>
+                    <ListTag />
                 </div>
             </aside>
         )
     }
 }
-
-export default ListPost;
+function mapStateToProps(state) {
+    return {
+        topPosts: state.TopPostReducer
+    };
+}
+export default connect(mapStateToProps, TopPostAction)(ListPost);

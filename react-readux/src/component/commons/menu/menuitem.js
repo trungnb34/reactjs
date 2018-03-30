@@ -1,20 +1,21 @@
 import React, {Component} from "react";
+import {Link} from "react-router";
 
 class MenuItem extends Component {
     render() {
         return (
             <li id="menu-item-21" className="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-21">
-                <a href="#">BSER</a>
+                <Link to={"/category/" + this.props.cate.title[0].slug}>{this.props.cate.title[0].name}</Link>
                 <ul className="sub-menu">
-                    <li id="menu-item-103" className="menu-item menu-item-type-custom menu-item-object-custom menu-item-103">
-                        <a href="#">CÂU CHUYỆN HAY</a>
-                    </li>
-                    <li id="menu-item-103" className="menu-item menu-item-type-custom menu-item-object-custom menu-item-103">
-                        <a href="#">GÓC CÔNG TY</a>
-                    </li>
-                    <li id="menu-item-94" className="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-94">
-                        <a href="#">PHÒNG TRUYỀN THỐNG</a>
-                    </li>
+                    {
+                        this.props.cate.value.map((cate, index) => {
+                            return(
+                                <li key={index} id="menu-item-103" className="menu-item menu-item-type-custom menu-item-object-custom menu-item-103">
+                                    <Link to={"/category/" + cate.slug}>{cate.name}</Link>
+                                </li>
+                            )
+                        })
+                    }
                 </ul>
             </li>
         )

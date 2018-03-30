@@ -30,6 +30,9 @@ body{
 #footer>div>div {
     padding-top: 15px;
 }
+#main {
+    min-height: 1200px;
+}
 table {
     border-collapse: collapse;
     border-spacing: 0

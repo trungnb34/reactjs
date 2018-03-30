@@ -11,6 +11,7 @@ class AppRouter extends Component {
                 <Route path={"/"} component={Home} />
                 <Route path={"category/:slug"} component={Content} />
                 <Route path={"post/:slug"} component={Content}/>
+                <Route path={"tag/:slug"} component={Content}/>
                 <Route path={"*"} component={PageNotFound}/>
             </Router>
         )

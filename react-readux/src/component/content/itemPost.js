@@ -29,7 +29,7 @@ class ItemPost extends Component {
                         <a target="_blank" href="#"><i className="fa fa-twitter"></i></a>
                         <a target="_blank" href="#"><i className="fa fa-google-plus"></i></a>
                     </div>
-                    </div>
+                </div>
             </article>
         ) 
     }

@@ -18,7 +18,7 @@ class PostController extends Controller
                         ->orWhere('categorys.parent_id', $cates->id)
                         ->get();
         $categoryName = DB::table('categorys')->select('name')->where('slug', $slug)->get();
-        return response()->json(['post' => $posts, 'cateName' => $categoryName], 200);
+        return response()->json(['posts' => $posts, 'cateName' => $categoryName], 200);
     }
 
     public function getDetailPost($slug) {
