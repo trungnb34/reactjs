@@ -8,17 +8,20 @@ use Illuminate\Support\Facades\DB;
 class PostController extends Controller
 {
     public function getAllPostByCate($slug) {
-        $cates = Db::table('categorys')->select('id')->where('slug', $slug)->first();
-        $posts = DB::table('posts')
-                        ->join('users', 'users.id', '=', 'posts.user_id')
-                        ->join('category_posts', 'category_posts.post_id', '=', 'posts.id')
-                        ->join('categorys', 'category_posts.category_id', '=', 'categorys.id')
-                        ->select('posts.*', 'users.id as userId', 'users.name as userName')
-                        ->where(['categorys.slug' => $slug, 'posts.status' => 1])
-                        ->orWhere('categorys.parent_id', $cates->id)
-                        ->get();
-        $categoryName = DB::table('categorys')->select('name')->where('slug', $slug)->get();
-        return response()->json(['posts' => $posts, 'cateName' => $categoryName], 200);
+        $cates = Db::table('categorys')->select('id', 'name')->where('slug', $slug)->first();
+        if($cates) {
+            $posts = DB::table('posts')
+                ->join('users', 'users.id', '=', 'posts.user_id')
+                ->join('category_posts', 'category_posts.post_id', '=', 'posts.id')
+                ->join('categorys', 'category_posts.category_id', '=', 'categorys.id')
+                ->select('posts.*', 'users.id as userId', 'users.name as userName')
+                ->where(['categorys.slug' => $slug, 'posts.status' => 1])
+                ->orWhere('categorys.parent_id', $cates->id)
+                ->get();
+//            $categoryName = DB::table('categorys')->select('name')->where('slug', $slug)->get();
+            return response()->json(['posts' => $posts, 'cateName' => $cates->name], 200);
+        }
+        return response()->json(['errors' => "khong ton tai category"], 401);
     }
 
     public function getDetailPost($slug) {

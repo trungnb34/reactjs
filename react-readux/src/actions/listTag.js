@@ -2,7 +2,7 @@ import BaseAPI from "../BaseAPI";
 
 export function loadListTag() {
     return (dispatch) => {
-        BaseAPI.get('get-all-tag').then(tags => {
+        return BaseAPI.get('get-all-tag').then(tags => {
             dispatch(getTopPost(tags.data.tags))
         })
     }

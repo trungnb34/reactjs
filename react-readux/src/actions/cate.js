@@ -14,7 +14,7 @@ export function getAllCate (cates) {
         cateRep.push(cate);
     })
     return{
-        type:"GET_ALL",
+        type:"GET_ALL_CATE",
         cates : cateRep
     }
 }

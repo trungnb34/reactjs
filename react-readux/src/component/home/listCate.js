@@ -17,7 +17,7 @@ class ListCate extends Component {
         return this.props.cates.cates.map((cate, index) => {
             return (
                 <div key={index}>
-                    <h2><Link to={"category/" + cate.title[0].slug}>{cate.title[0].name}</Link></h2>
+                    <h2><Link to={"/category/" + cate.title[0].slug}>{cate.title[0].name}</Link></h2>
                     <ul className="grid cs-style-3">
                         {
                             cate.value.map((subCate, i) => {

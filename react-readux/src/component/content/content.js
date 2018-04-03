@@ -5,32 +5,38 @@ import ItemPost from "./main-content";
 import Footer from "../commons/footer/footer";
 import Detail from "./detail";
 import ItemRelatedPost from "./itemRelatedPost";
+import MainContent from "./main-content";
+import * as ListPostByCate from "../../actions/listPost";
+import {connect} from "react-redux";
 
 class Content extends Component {
     constructor(props) {
         super(props);
         this.state = {
             param: '',
-            value: ''
+            status: 1
         }
     }
     componentDidMount () {
-        // console.log(this.props);
-        // this.getParam();
-
+        this.getData();
     }
     componentDidUpdate() {
-        // console.log(this.props);
-        // this.getParam();
+        this.getData();
     }
 
-    getParam() {
+    getData() {
         let param = this.props.location.pathname.split('/');
-        this.setState({
-            param: param[1],
-            value: param[2]
-        })
-        // console.log(param[1]);
+        let nav = param[1];
+        let value = param[2];
+        if(nav == 'category') {
+            return (
+                <MainContent param={value} />
+            )
+        } else {
+            return (
+                <Detail param={value} />
+            )
+        }
     }
 
     render() {
@@ -39,7 +45,7 @@ class Content extends Component {
                 <Menu />
                 <div className="container wrapper_content">
                     <div id="content">
-                        <ItemPost />
+                        {this.getData()}
                         <ListPost />
                         <Footer />
                     </div>
@@ -49,4 +55,11 @@ class Content extends Component {
     }
 }
 
-export default Content;
+function mapStateToProps(state) {
+    return {
+        posts: state.PostByCate
+    };
+}
+
+
+export default connect(mapStateToProps, ListPostByCate)(Content);

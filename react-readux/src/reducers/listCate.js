@@ -4,7 +4,7 @@ const initalState = {
 
 const ListCateReducer = (state = initalState, action) => {
     switch(action.type) {
-        case 'GET_ALL':
+        case 'GET_ALL_CATE':
             return {...state, cates : action.cates};
         default:
             return state;
