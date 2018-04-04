@@ -16,7 +16,4 @@ Route::get('get-all-tag', 'TagController@getAllTag');
 
 Route::get('get-list-post-by-date', 'PostController@getListPostByDate');
 
-
-Route::get('hello', function() {
-    return ['res' => 'hello'];
-});
+Route::get('get-relate-post/{id}', 'PostController@getRelatePost');

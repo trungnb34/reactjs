@@ -8,14 +8,11 @@ import ItemRelatedPost from "./itemRelatedPost";
 import MainContent from "./main-content";
 import * as ListPostByCate from "../../actions/listPost";
 import {connect} from "react-redux";
+import BaseAPI from "../../BaseAPI";
 
 class Content extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            param: '',
-            status: 1
-        }
     }
     componentDidMount () {
         this.getData();

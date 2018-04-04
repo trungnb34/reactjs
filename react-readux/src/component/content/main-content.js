@@ -2,42 +2,34 @@ import React, {Component} from "react";
 import ItemPost from "./itemPost";
 import {connect} from "react-redux";
 import * as listPostByCate from "../../actions/listPost";
-import store from "../../reducers/store";
+// import store from "../../reducers/store";
 import BaseAPI from "../../BaseAPI";
 
 class MainContent extends Component {
     constructor(props) {
         super(props);
-        this.state={
-            posts: [],
-            cateName: ''
+        this.state = {
+            cateName: '',
+            posts: []
         }
     }
     componentDidMount() {
-        // BaseAPI.get('get-all-post-by-cate/' + this.props.param).then(posts => {
-        //     this.state.cateName = posts.data.cateName;
-        //     this.state.posts = posts.data.posts;
-        //     this.setState(this.state);
-        //     // console.log(posts);
-        // })
+        // this.props.filterPostByCate(this.props.param);
+        BaseAPI.get('get-all-post-by-cate/' + this.props.param).then(posts => {
+            this.state.cateName = posts.data.cateName;
+            this.state.posts = posts.data.posts;
+            this.setState(this.state);
+        })
     }
-    componentDidUpdate() {
-        // BaseAPI.get('get-all-post-by-cate/' + this.props.param).then(posts => {
-        //     this.state.cateName = posts.data.cateName;
-        //     this.state.posts = posts.data.posts;
-        //     this.setState(this.state);
-        //     // console.log(posts);
-        // })
-    }
-    // showData () {
-    //     BaseAPI.get('get-all-post-by-cate/' + this.props.param).then(posts => {
-    //         // this.state.cateName = posts.data.cateName;
-    //         // this.state.posts = posts.data.posts;
-    //         // this.setState(this.state);
-    //         console.log(posts);
-    //     })
-    // }
 
+    componentWillReceiveProps(newProps) {
+        // this.props.filterPostByCate(this.props.param);
+        BaseAPI.get('get-all-post-by-cate/' + newProps.param).then(posts => {
+            this.state.cateName = posts.data.cateName;
+            this.state.posts = posts.data.posts;
+            this.setState(this.state);
+        })
+    }
     render() {
         return(
             <div id="main" className="regular category_detail">
@@ -47,7 +39,13 @@ class MainContent extends Component {
                     }</h1>
                 </div>
                 <br />
-                <ItemPost />
+                {
+                    this.state.posts.map((post, index) => {
+                        return(
+                            <ItemPost key={index} post={post}/>
+                        )
+                    })
+                }
             </div>
         )
     }
