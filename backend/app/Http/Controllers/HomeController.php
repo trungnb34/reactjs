@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
     public function getAllCategory() {
+        // return ['res' => 'trung'];
         $categorys = DB::table('categorys')->get();
         $cates = $this->pushArray($categorys);
         // $test = ['finish doc', 'submit pr', 'nag dan to review'];

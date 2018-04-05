@@ -5,7 +5,6 @@ const API = "http://localhost:8000/api/"
 const BaseAPI = axios.create(
     {
         baseURL: API,
-        timeout: 1000,
         headers: {
             'X-Custom-Header': 'XMLHttpRequest',
             'Accept': 'application/json',

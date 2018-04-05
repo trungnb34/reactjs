@@ -9,6 +9,7 @@ import MainContent from "./main-content";
 import * as ListPostByCate from "../../actions/listPost";
 import {connect} from "react-redux";
 import BaseAPI from "../../BaseAPI";
+import Tag from "./tag";
 
 class Content extends Component {
     constructor(props) {
@@ -29,9 +30,13 @@ class Content extends Component {
             return (
                 <MainContent param={value} />
             )
-        } else {
+        } else if(nav == 'post'){
             return (
                 <Detail param={value} />
+            )
+        } else {
+            return (
+                <Tag param={value} />
             )
         }
     }

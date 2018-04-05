@@ -17,3 +17,5 @@ Route::get('get-all-tag', 'TagController@getAllTag');
 Route::get('get-list-post-by-date', 'PostController@getListPostByDate');
 
 Route::get('get-relate-post/{id}', 'PostController@getRelatePost');
+
+Route::get('get-all-post-by-tag/{slug}', 'PostController@getPostByTag');

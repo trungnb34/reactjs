@@ -14,33 +14,26 @@ class MainContent extends Component {
         }
     }
     componentDidMount() {
-        // this.props.filterPostByCate(this.props.param);
-        BaseAPI.get('get-all-post-by-cate/' + this.props.param).then(posts => {
-            this.state.cateName = posts.data.cateName;
-            this.state.posts = posts.data.posts;
-            this.setState(this.state);
-        })
+        this.props.filterPostByCate(this.props.param);
     }
 
     componentWillReceiveProps(newProps) {
-        // this.props.filterPostByCate(this.props.param);
-        BaseAPI.get('get-all-post-by-cate/' + newProps.param).then(posts => {
-            this.state.cateName = posts.data.cateName;
-            this.state.posts = posts.data.posts;
-            this.setState(this.state);
-        })
+        if(this.props.param !== newProps.param) {
+            this.props.filterPostByCate(this.props.param);
+        }
     }
+
     render() {
         return(
             <div id="main" className="regular category_detail">
                 <div>
                     <h1 className="find_with">{
-                       this.state.cateName
+                       this.props.posts.cates
                     }</h1>
                 </div>
                 <br />
                 {
-                    this.state.posts.map((post, index) => {
+                    this.props.posts.posts.map((post, index) => {
                         return(
                             <ItemPost key={index} post={post}/>
                         )

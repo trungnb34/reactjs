@@ -9,27 +9,29 @@ class RelatedPost extends Component {
             posts: []
         }
     }
-    componentDidUpdate() {
-        console.log(this.props.cate);
-        // BaseAPI.get('get-relate-post/' + this.props.cate).then(posts => {
-        //     console.log(posts.data);
-        //     this.setState({posts: posts.data.relates});
-        // })
+    componentWillReceiveProps(newProps) {
+        BaseAPI.get('get-relate-post/' + newProps.cate).then(posts => {
+            this.setState({posts: posts.data.relates});
+        })
     }
+
+
+
     render() {
         return(
             <div className="post-related"><h4 className="block-heading">BÀI LIÊN QUAN</h4>
                 {
-                    console.log(this.state.posts)
-                    // this.props.posts.map((post, index) => {
-                    //     return (
-                    //         <ItemRelatedPost key={index}/>
-                    //     )
-                    // })
+                    this.state.posts.map((post, index) => {
+                        return (
+                            <ItemRelatedPost key={index} post={post}/>
+                        )
+                    })
                 }
             </div>
         )
     }
 }
+function mapStateToProps() {
 
+}
 export default RelatedPost;
