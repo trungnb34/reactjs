@@ -6,16 +6,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('get-all-category', 'HomeController@getAllCategory');
+Route::get('get-all-category', 'User\HomeController@getAllCategory');
 
-Route::get('get-all-post-by-cate/{slug}', 'PostController@getAllPostByCate');
+Route::get('get-all-post-by-cate/{slug}', 'User\PostController@getAllPostByCate');
 
-Route::get('get-detail-post/{slug}', 'PostController@getDetailPost');
+Route::get('get-detail-post/{slug}', 'User\PostController@getDetailPost');
 
-Route::get('get-all-tag', 'TagController@getAllTag');
+Route::get('get-all-tag', 'User\TagController@getAllTag');
 
-Route::get('get-list-post-by-date', 'PostController@getListPostByDate');
+Route::get('get-list-post-by-date', 'User\PostController@getListPostByDate');
 
-Route::get('get-relate-post/{id}', 'PostController@getRelatePost');
+Route::get('get-relate-post/{id}', 'User\PostController@getRelatePost');
 
-Route::get('get-all-post-by-tag/{slug}', 'PostController@getPostByTag');
+Route::get('get-all-post-by-tag/{slug}', 'User\PostController@getPostByTag');

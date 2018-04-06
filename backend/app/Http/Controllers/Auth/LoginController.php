@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Http\Requests\LoginRequest;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -34,6 +36,30 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+//        $this->middleware('guest')->except('logout');
+    }
+
+    public function getLogin()
+    {
+        if (Auth::check()) {
+            return redirect()->route('home');
+        } else {
+            return view('admin.login.login');
+        }
+    }
+
+    public function logout() {
+        Auth::logout();
+        return redirect()->route('login');
+    }
+
+    public function login(LoginRequest $request) {
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            if($request->rememberMe) {
+//                Cookie::make('remenber', 'value', 3660);
+            }
+            return redirect()->intended('list-post');
+        }
+        return redirect()->back()->with('error', 'Tài khoản hoặc mật khẩu không chính xác');
     }
 }

@@ -52,7 +52,7 @@ class PostController extends Controller
                 ->select('posts.id', 'posts.avatar', 'posts.title', 'posts.slug', 'posts.created_at')
                 ->limit(3)
                 ->get();
-        return response()->json(['relates' => $relatePosts], 200);
+        return response()->json(['posts' => $relatePosts], 200);
     }
 
     public function getPostByTag($slug) {

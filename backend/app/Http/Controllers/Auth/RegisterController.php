@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Http\Requests\RegisterRequest;
+
 
 class RegisterController extends Controller
 {
@@ -68,5 +70,23 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    public function getRegister() {
+        return view('admin.register.register');
+    }
+
+    public function register(RegisterRequest $request) {
+        $userCreate = new User();
+        $userCreate->full_name = $request->fullname;
+        $userCreate->name = $request->name;
+        $userCreate->email = $request->email;
+        $userCreate->password = bcrypt($request->password);
+        $userCreate->role_id = 2;
+        $userCreate->status = 1;
+        $userCreate->avatar = "https://i.pinimg.com/236x/64/6d/24/646d24a3449f7b1afe2a7ed82eb9d736.jpg";
+        if($userCreate->save()) {
+            return redirect()->route('login')->with('log', 'Tạo tài khoản thành công xin vui lòng đăng nhập');
+        }
     }
 }

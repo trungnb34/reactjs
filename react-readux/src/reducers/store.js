@@ -4,6 +4,7 @@ import ListTagReducer from "./listTag";
 import PostByCate from "./postByCate";
 import Router from "./router";
 import RelatePost from "./relatePost";
+import DetailPost from "./post";
 import {createStore, combineReducers, compose, applyMiddleware} from "redux";
 import thunk from "redux-thunk";
 
@@ -13,7 +14,8 @@ const reducers = combineReducers({
     ListTagReducer,
     PostByCate,
     Router,
-    RelatePost
+    RelatePost,
+    DetailPost
 });
 
 const store = createStore(reducers, applyMiddleware(thunk));

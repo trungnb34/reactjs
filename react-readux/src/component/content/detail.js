@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import RelatedPost from "./relatedPost";
 import BaseAPI from "../../BaseAPI";
+import * as detailPost from "../../actions/detail";
+import {connect} from "react-redux";
 
 class Detail extends Component {
     constructor(props) {
@@ -9,12 +11,16 @@ class Detail extends Component {
             post: {}
         }
     }
-    componentDidMount() {
+    componentWillMount() {
         BaseAPI.get('get-detail-post/' + this.props.param).then(post => {
             this.setState({post: post.data.post});
         })
+        // this.props.loadDetailPost(this.props.param);
     }
     componentWillReceiveProps(newProps) {
+        // if(this.props.param !== newProps.param) {
+        //     this.props.loadDetailPost(newProps.param);
+        // }
         BaseAPI.get('get-detail-post/' + newProps.param).then(post => {
             this.setState({post: post.data.post});
         })
@@ -52,4 +58,10 @@ class Detail extends Component {
     }
 }
 
-export default Detail;
+function mapsStateToProps(state) {
+    return {
+        post: state.DetailPost
+    }
+}
+
+export default connect(mapsStateToProps, detailPost)(Detail);

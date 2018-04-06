@@ -15,7 +15,6 @@ class Tag extends Component {
     }
     componentDidMount() {
         BaseAPI.get('get-all-post-by-tag/' + this.props.param).then(posts => {
-            // console.log(posts);
             this.state.tagName = posts.data.tagName;
             this.state.posts = posts.data.posts;
             this.setState(this.state);

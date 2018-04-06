@@ -31,7 +31,7 @@ class Menu extends Component {
                         </ul>
                     </div>
                     <div className="btn_login">
-                        <a href="#">ĐĂNG NHẬP</a>
+                        <a href="localhost:8000/login">ĐĂNG NHẬP</a>
                     </div>
                     <Search />
                 </div>

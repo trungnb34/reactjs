@@ -12,16 +12,24 @@
 */
 
 Route::get('/', function () {
-    return view('admin.layout.layout');
-});
-
-Route::get('/post', function () {
-    return view('admin.posts.posts');
-});
-Route::get('/list-post', function () {
-    return view('admin.list-post.list-post');
-});
+//    return view('admin.layout.layout');
+    return redirect()->route('list-post', 1);
+})->name('home');
 
 Route::get('/profile', function () {
     return view('admin.profiles.profiles');
+});
+
+Route::get('/login', 'Auth\LoginController@getLogin')->name('login');
+
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+
+Route::post('/login', 'Auth\LoginController@login');
+
+Route::get('/register', 'Auth\RegisterController@getRegister')->name('register');
+
+Route::post('/register', 'Auth\RegisterController@register');
+
+Route::middleware(['admin'])->group(function () {
+    Route::get('/list-post/{stt}', 'Admin\ListPostController@getListPost')->name('list-post');
 });

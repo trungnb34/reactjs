@@ -34,8 +34,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href=""><i class="fa fa-circle-o"></i> Danh sách bài viết</a></li>
-                    <li><a href=""><i class="fa fa-circle-o"></i> Thêm bài viết</a></li>
+                    <li><a href="{{ url('list-post/1') }}"><i class="fa fa-circle-o"></i> Danh sách bài viết</a></li>
+                    <li><a href="{{ url('post') }}"><i class="fa fa-circle-o"></i> Thêm bài viết</a></li>
                 </ul>
             </li>
         </ul>
