@@ -12,7 +12,8 @@
 <!-- Main content -->
 <section class="content">
     <div class="row">
-    <form>
+    <form method="post" enctype="multipart/form-data">
+        {!! csrf_field() !!}
         <div class="col-md-8">
             <div class="box box-info">
             <div class="box-header" style="height: 55px">
@@ -25,24 +26,25 @@
                 <div class="form-group">
                     <label class="control-label">Tiêu đề</label>
                     <div class="col-sm-12" style="padding-left: 0px; padding-right: 0px; margin-bottom: 10px">
-                      <input type="email" class="form-control" id="inputName" placeholder="Name">
+                        <input type="text" name="title" class="form-control" id="inputName" value="{{ old('title') }}" placeholder="Name">
+                        <strong style="color: red" class="error">{{ $errors->first('title') }}</strong>
                     </div>
                 </div>
                 <div class="form-group" style="margin-top: 10px">
                     <label for="inputExperience" class="control-label">Trích đoạn</label>
-
                     <div class="col-sm-12" style="padding-left: 0px; padding-right: 0px">
-                      <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
+                        <textarea class="form-control" name="abstract" id="inputExperience" placeholder="Experience">{{ old('abstract') }}</textarea>
+                        <strong style="color: red" class="error">{{ $errors->first('abstract') }}</strong>
                     </div>
                   </div>
             </div>
             <div class="box-body pad">
                 <label class="control-label">Nội dung</label>
-                <textarea id="editor1" name="editor1" rows="10" cols="80">This is my textarea to be replaced with CKEditor.</textarea>
+                <textarea id="editor1" name="contentText" rows="10" cols="80">{{ old('contentText') }}</textarea>
+                <strong style="color: red" class="error">{{ $errors->first('contentText') }}</strong>
             </div>
             </div>
             <!-- /.box -->
-
         </div>
         <div class="col-md-4">
             <div class="box box-info">
@@ -59,57 +61,54 @@
                 </div>
                 <div class="form-group">
                     <label>Trạng Thái</label>
-                    <select class="form-control select2" disabled="disabled" style="width: 100%;">
-                        <option selected="selected">Alabama</option>
-                        <option>Alaska</option>
-                        <option>California</option>
-                        <option>Delaware</option>
-                        <option>Tennessee</option>
-                        <option>Texas</option>
-                        <option>Washington</option>
+                    <select class="form-control select2" name="status" style="width: 100%;">
+                        <option value="1" selected="selected">Bản nháp</option>
                     </select>
+                    {{--<strong style="color: red" class="error">{{ $errors->first('status') }}</strong>--}}
                 </div>
                 <div class="form-group">
                     <label>Danh mục</label>
-                    <select class="form-control select2" multiple="multiple" data-placeholder="Select a State"
+                    <select class="form-control select2" name="category[]" multiple="multiple" data-placeholder="Select a category"
                             style="width: 100%;">
-                        <option>Alabama</option>
-                        <option>Alaska</option>
-                        <option>California</option>
-                        <option>Delaware</option>
-                        <option>Tennessee</option>
-                        <option>Texas</option>
-                        <option>Washington</option>
+                        @foreach($categorys as $cate)
+                            <option value="{{ $cate->id }}" {{ (collect(old('category'))->contains($cate->id)) ? 'selected':'' }}>{{ $cate->name }}</option>
+                        @endforeach
                     </select>
+                    <strong style="color: red" class="error">{{ $errors->first('category') }}</strong>
                 </div>
                 <div class="form-group">
                     <label>Thẻ</label>
-                    <select class="form-control select2" multiple="multiple" data-placeholder="Select a State"
+                    <select class="form-control select2" name="tag[]" multiple="multiple" data-placeholder="Select a tag"
                             style="width: 100%;">
-                        <option>Alabama</option>
-                        <option>Alaska</option>
-                        <option>California</option>
-                        <option>Delaware</option>
-                        <option>Tennessee</option>
-                        <option>Texas</option>
-                        <option>Washington</option>
+                        @foreach($tags as $tag)
+                            <option value="{{ $tag->id }}" {{ (collect(old('tag'))->contains($tag->id)) ? 'selected':'' }}>{{ $tag->name }}</option>
+                        @endforeach
                     </select>
+                    <strong style="color: red" class="error">{{ $errors->first('tag') }}</strong>
                 </div>
                 <div class="form-group">
                   <label>Đóng/mở bình luận</label>
-                  <select class="form-control">
-                    <option>option 1</option>
-                    <option>option 2</option>
+                  <select class="form-control" name="isOpen">
+                    <option value="1">Open</option>
+                    <option value="0">Close</option>
                   </select>
+                    <strong style="color: red" class="error">{{ $errors->first('status') }}</strong>
                 </div>
                 <div class="form-group">
                     <label>Ảnh đại diện</label>
                     <div class="avatar" style="width: 100%; height: 180px; border: 1px solid #ddd">
-                        <img src="" alt="">
+                        <img src="{{ old('image') }}" id="imgShow" alt="" style="width: 100%; height: 100%">
                     </div>
                 </div>
                 <div class="form-group col-sm-5" style="padding: 0px">
-                    <button type="button" class="btn btn-block btn-default" id="exampleInputFile">Chọn ảnh</button>
+                    {{--<button type="button" class="btn btn-block btn-default" id="chooseFile">--}}
+                        {{--Chọn ảnh--}}
+                    {{--</button>--}}
+                    {{--<strong style="color: red" class="error">{{ $errors->first('image') }}</strong>--}}
+                    {{--<input type="hidden" id="urlImage" name="image" value="{{ old('image') }}">--}}
+                    <label for="chooseImage">Chọn ảnh</label>
+                    <input type="file" name="image" accept="image/gif, image/jpeg, image/png" class="form-control-file" id="chooseImage">
+                    <strong style="color: red" class="error">{{ $errors->first('image') }}</strong>
                 </div>
             </div>
             </div>
@@ -125,10 +124,11 @@
     <script src="bower_components/ckeditor/ckeditor.js"></script>
     <script src="bower_components/select2/dist/js/select2.full.min.js"></script>
     <script src="bower_components/ckfinder/ckfinder.js"></script>
+    <script src="js/selectImagePost.js"></script>
     <script>
-        $('#exampleInputFile').click(function() {
-            selectFileWithCKFinder('exampleInputFile');
-        })
+        $('#chooseFile').click(function() {
+            selectFileWithCKFinder('chooseFile');
+        });
         function selectFileWithCKFinder( elementId ) {
             CKFinder.modal( {
                 chooseFiles: true,
@@ -163,5 +163,9 @@
             $('.textarea').wysihtml5()
         })
         $('.select2').select2();
+        // $('#chooseFile').click(function () {
+        //     alert($(this).val());
+        //     // alert('ok');
+        // })
     </script>
     @endsection

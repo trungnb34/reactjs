@@ -58,7 +58,7 @@ class LoginController extends Controller
             if($request->rememberMe) {
 //                Cookie::make('remenber', 'value', 3660);
             }
-            return redirect()->intended('list-post');
+            return redirect()->route('list-post', 1);
         }
         return redirect()->back()->with('error', 'Tài khoản hoặc mật khẩu không chính xác');
     }
