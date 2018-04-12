@@ -19,7 +19,7 @@ class Menu extends Component {
                     <div id="navigation-wrapper">
                         <ul id="menu-main-menu" className="menu">
                             <li id="menu-item-19" className="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-has-children menu-item-19">
-                                <Link to={"/"}>BEETBLOG</Link>
+                                <a href="/">BEETBLOG</a>
                             </li>
                             {
                                 this.props.cates.cates.map((cate, index) => {
@@ -31,7 +31,7 @@ class Menu extends Component {
                         </ul>
                     </div>
                     <div className="btn_login">
-                        <a href="localhost:8000/login">ĐĂNG NHẬP</a>
+                        <a href="http://localhost:8000/login">ĐĂNG NHẬP</a>
                     </div>
                     <Search />
                 </div>

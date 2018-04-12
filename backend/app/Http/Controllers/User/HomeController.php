@@ -1,23 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
-use App\Models\Category;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
     public function getAllCategory() {
-        // return ['res' => 'trung'];
         $categorys = DB::table('categorys')->get();
         $cates = $this->pushArray($categorys);
-        // $test = ['finish doc', 'submit pr', 'nag dan to review'];
         return response()->json(['cates' => $cates], 200);
     }
     private function pushArray($cates) {
         $cateRes = array();
-
         foreach ($cates as $item) {
             if($item->parent_id == null) {
                 $cateP = array();

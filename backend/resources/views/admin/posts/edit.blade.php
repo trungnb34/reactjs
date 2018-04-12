@@ -27,6 +27,7 @@
                                 <label class="control-label">Tiêu đề</label>
                                 <div class="col-sm-12" style="padding-left: 0px; padding-right: 0px; margin-bottom: 10px">
                                     <input type="text" name="title" class="form-control" id="inputName" value="{{ $post->title }}" placeholder="Name">
+                                    {{--<input type="hidden" name="slug" class="form-control" id="" value="{{ $post->slug }}" placeholder="Name">--}}
                                     <strong style="color: red" class="error">{{ $errors->first('title') }}</strong>
                                 </div>
                             </div>
@@ -41,6 +42,7 @@
                         <div class="box-body pad">
                             <label class="control-label">Nội dung</label>
                             <textarea id="editor2" name="contentText" rows="10" cols="80">{{ $post->content }}</textarea>
+                            {{--<textarea id="editor1" name="contentText" rows="10" cols="80">{{ $post->content }}</textarea>--}}
                             <strong style="color: red" class="error">{{ $errors->first('contentText') }}</strong>
                         </div>
                     </div>
@@ -89,15 +91,15 @@
                             <div class="form-group">
                                 <label>Đóng/mở bình luận</label>
                                 <select class="form-control" name="isOpen">
-                                    <option value="1">Open</option>
-                                    <option value="0">Close</option>
+                                    <option value="1" {{ $post->isOpenComment == 1 ? "selected" : "" }}>Open</option>
+                                    <option value="0" {{ $post->isOpenComment == 0 ? "selected" : "" }}>Close</option>
                                 </select>
                                 <strong style="color: red" class="error">{{ $errors->first('status') }}</strong>
                             </div>
                             <div class="form-group">
                                 <label>Ảnh đại diện</label>
                                 <div class="avatar" style="width: 100%; height: 180px; border: 1px solid #ddd">
-                                    <img src="{{ old('image') }}" id="imgShow" alt="" style="width: 100%; height: 100%">
+                                    <img src="{{ $post->avatar }}" id="imgShow" alt="" style="width: 100%; height: 100%">
                                 </div>
                             </div>
                             <div class="form-group col-sm-5" style="padding: 0px">
@@ -145,13 +147,13 @@
         }
         $(function () {
             CKEDITOR.replace('editor2', {
-                filebrowserBrowseUrl : 'bower_components/ckfinder/ckfinder.html',
-                filebrowserImageBrowseUrl : 'bower_components/ckfinder/ckfinder.html?type=Images',
-                filebrowserFlashBrowseUrl : 'bower_components/ckfinder/ckfinder.html?type=Flash',
-                filebrowserUploadUrl : 'bower_components/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-                filebrowserImageUploadUrl : 'bower_components/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-                filebrowserFlashUploadUrl : 'bower_components/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
-            })
+                filebrowserBrowseUrl : '/bower_components/ckfinder/ckfinder.html',
+                filebrowserImageBrowseUrl : '/bower_components/ckfinder/ckfinder.html?type=Images',
+                filebrowserFlashBrowseUrl : '/bower_components/ckfinder/ckfinder.html?type=Flash',
+                filebrowserUploadUrl : '/bower_components/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+                filebrowserImageUploadUrl : '/bower_components/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+                filebrowserFlashUploadUrl : '/bower_components/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
+            });
             //bootstrap WYSIHTML5 - text editor
             $('.textarea').wysihtml5()
         });

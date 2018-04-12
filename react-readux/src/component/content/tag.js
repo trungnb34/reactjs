@@ -28,6 +28,7 @@ class Tag extends Component {
             BaseAPI.get('get-all-post-by-tag/' + newProps.param).then(posts => {
                 this.state.tagName = posts.data.tagName;
                 this.state.posts = posts.data.posts;
+                // console.log("post => ", posts);
                 this.setState(this.state);
             })
         }
@@ -36,9 +37,9 @@ class Tag extends Component {
         return(
             <div id="main" className="regular category_detail">
                 <div>
-                    <h1 className="find_with">{
-                       this.state.tagName
-                    }</h1>
+                    <h1 className="find_with">
+                        { this.state.tagName }
+                    </h1>
                 </div>
                 <br />
                 {

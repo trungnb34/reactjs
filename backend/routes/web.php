@@ -32,8 +32,16 @@ Route::post('/register', 'Auth\RegisterController@register');
 
 Route::middleware(['admin'])->group(function () {
     Route::get('/list-post/{stt}', 'Admin\PostController@getListPost')->name('list-post');
+
     Route::get('/post', 'Admin\PostController@create')->name('post');
+
     Route::post('/post', 'Admin\PostController@store');
+
     Route::get('/edit/{slug}', 'Admin\PostController@edit');
+
+    Route::post('/edit/{slug}', 'Admin\PostController@update');
+
+    Route::get('/delete/{slug}', 'Admin\PostController@delete');
+
     Route::get('/detail/{slug}', 'Admin\PostController@detail');
 });

@@ -152,12 +152,12 @@
             // Replace the <textarea id="editor1"> with a CKEditor
             // instance, using default configuration.
             CKEDITOR.replace('editor1', {
-                filebrowserBrowseUrl : 'bower_components/ckfinder/ckfinder.html',
-			    filebrowserImageBrowseUrl : 'bower_components/ckfinder/ckfinder.html?type=Images',
-			    filebrowserFlashBrowseUrl : 'bower_components/ckfinder/ckfinder.html?type=Flash',
-			    filebrowserUploadUrl : 'bower_components/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-			    filebrowserImageUploadUrl : 'bower_components/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-			    filebrowserFlashUploadUrl : 'bower_components/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
+                filebrowserBrowseUrl : '/bower_components/ckfinder/ckfinder.html',
+			    filebrowserImageBrowseUrl : '/bower_components/ckfinder/ckfinder.html?type=Images',
+			    filebrowserFlashBrowseUrl : '/bower_components/ckfinder/ckfinder.html?type=Flash',
+			    filebrowserUploadUrl : '/bower_components/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+			    filebrowserImageUploadUrl : '/bower_components/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+			    filebrowserFlashUploadUrl : '/bower_components/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
             })
             //bootstrap WYSIHTML5 - text editor
             $('.textarea').wysihtml5()

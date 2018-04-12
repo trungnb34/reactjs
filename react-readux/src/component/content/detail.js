@@ -15,12 +15,8 @@ class Detail extends Component {
         BaseAPI.get('get-detail-post/' + this.props.param).then(post => {
             this.setState({post: post.data.post});
         })
-        // this.props.loadDetailPost(this.props.param);
     }
     componentWillReceiveProps(newProps) {
-        // if(this.props.param !== newProps.param) {
-        //     this.props.loadDetailPost(newProps.param);
-        // }
         BaseAPI.get('get-detail-post/' + newProps.param).then(post => {
             this.setState({post: post.data.post});
         })
@@ -39,8 +35,7 @@ class Detail extends Component {
                         <a href="#" title="Posts by Super Administrator" rel="author">{this.state.post.userName}</a>{ ' đăng ngày ' + this.state.post.created_at}
                     </span>
                     <div className="post-entry">
-                        <p>
-                            { this.state.post.content }
+                        <p dangerouslySetInnerHTML={{ __html: this.state.post.content }} >
                         </p>
                     </div>
                     <div className="post-meta">                                                                                                      

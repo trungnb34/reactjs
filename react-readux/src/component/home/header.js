@@ -7,11 +7,11 @@ class Header extends Component {
             <div className="header">
                 <div className="bgk_top">
                     <div className="logo text">
-                        <a href="#">BEETBLOG</a>
+                        <a href="/">BEETBLOG</a>
                     </div>
                     <div className="login">
                         <div className="btn_login text">
-                            <a href="#">ĐĂNG NHẬP</a>
+                            <a href="http://localhost:8000/login">ĐĂNG NHẬP</a>
                         </div>
                     </div>
                 </div>

@@ -47,7 +47,7 @@
                     <td style="width: 250px">
                         <a href="{{ url('/detail/' . $post->slug) }}" class="btn bg-orange btn-flat margin">detal</a>
                         <a href="{{ url('/edit/' . $post->slug) }}" class="btn bg-olive btn-flat margin">edit</a>
-                        <a href="{{ url('/delete/' . $post->slug) }}" class="btn bg-maroon btn-flat margin">delete</a>
+                        <a href="{{ url('/delete/' . $post->slug) }}" onclick="!confirm('Bạn có muốn xóa bài viết')" class="btn bg-maroon btn-flat margin">delete</a>
                     </td>
                   </tr>
                 @endforeach

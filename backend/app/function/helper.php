@@ -1,5 +1,6 @@
 <?php
-function stripUnicode($str) {
+function stripUnicode($str)
+{
     if (!$str) return false;
     $unicode = array(
         'a' => 'á|à|ả|ã|ạ|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ',
@@ -17,9 +18,20 @@ function stripUnicode($str) {
         'y' => 'ý|ỳ|ỷ|ỹ|ỵ',
         'Y' => 'Ý|Ỳ|Ỷ|Ỹ|Ỵ'
     );
-    foreach($unicode as $khongdau=>$codau) {
-        $arr=explode("|",$codau);
-        $str = str_replace($arr,$khongdau,$str);
+    foreach ($unicode as $khongdau => $codau) {
+        $arr = explode("|", $codau);
+        $str = str_replace($arr, $khongdau, $str);
+        $str = str_replace(' ', "-", $str);
     }
     return $str;
+}
+
+function checkEditTitlePost($slug, $value) {
+    $post = \Illuminate\Support\Facades\DB::table('posts')->where('slug', $slug)->first();
+    if($value != $post->title) {
+        if(count(\Illuminate\Support\Facades\DB::table('posts')->where('title', $value)->get()) != 0) {
+            return false;
+        }
+    }
+    return true;
 }

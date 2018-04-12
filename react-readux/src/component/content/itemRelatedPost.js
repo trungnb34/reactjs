@@ -1,14 +1,14 @@
 import React, {Component} from "react";
-
+import {Link} from "react-router";
 class ItemRelatedPost extends Component {
     render() {
         return(
             <div className="item-related">
-                <a href="#">
+                <Link to={"/post/" + this.props.post.slug}>
                     <img width="500" height="380" src={this.props.post.avatar} className="attachment-misc-thumb size-misc-thumb wp-post-image" alt="naturetrip" />
-                </a>
+                </Link>
                 <h3>
-                    <a href="" className="title">{this.props.post.title}</a>
+                    <Link to={"/post/" + this.props.post.slug} className="title">{this.props.post.title}</Link>
                 </h3>
                 <span className="date">{this.props.post.created_at}</span>
             </div>
