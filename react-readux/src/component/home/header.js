@@ -1,7 +1,49 @@
 import React, {Component} from "react";
-// import "../../../public/css-js/default.css";
+import {connect} from "react-redux";
+import * as UserInfo from "../../actions/user";
+import {Link} from "react-router";
 
 class Header extends Component {
+    constructor(props) {
+        super(props);
+        this.logOut = this.logOut.bind(this);
+    }
+
+    componentWillMount() {
+        if(localStorage['access_token'] != undefined) {
+            this.props.GetUserInfo();
+        }
+    }
+
+    showUserInfo() {
+        if(this.props.user.user.name) {
+            return (
+                <div className="dropdown">
+                    <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {this.props.user.user.name}
+                    </button>
+                    <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a className="dropdown-item item" href="#">Action</a>
+                        <a className="dropdown-item item" href="#">Another action</a>
+                    </div>
+                </div>
+            )
+        } else {
+            return (
+                <Link to={"/login"}>
+                    ĐĂNG NHẬP
+                </Link>
+            )
+        }
+    }
+
+    logOut(e) {
+        e.preventDefault();
+        localStorage.removeItem('access_token');
+        const url = window.location.href;
+        window.location.href = url;
+    }
+
     render() {
         return (
             <div className="header">
@@ -11,7 +53,14 @@ class Header extends Component {
                     </div>
                     <div className="login">
                         <div className="btn_login text">
-                            <a href="http://localhost:8000/login">ĐĂNG NHẬP</a>
+                            <a href="#" onClick={this.logOut}>
+                                LOG OUT
+                            </a>
+                        </div>
+                    </div>
+                    <div className="login">
+                        <div className="btn_login text">
+                            {this.showUserInfo()}
                         </div>
                     </div>
                 </div>
@@ -27,4 +76,10 @@ class Header extends Component {
     }
 }
 
-export default Header;
+function mapStateToProps(state) {
+    return {
+        user: state.UserInfo
+    }
+}
+
+export default connect(mapStateToProps, UserInfo)(Header);

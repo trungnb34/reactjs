@@ -1,0 +1,51 @@
+import React, {Component} from "react";
+import {connect} from "react-redux";
+import * as GetUserInfo from "../../../actions/user";
+import {Link} from "react-router";
+
+class ButtonLogin extends Component {
+
+    componentDidMount() {
+        this.props.GetUserInfo();
+    }
+
+    showUserInfo() {
+        if(this.props.user.user.name != '') {
+            return (
+                <div className="dropdown">
+                    <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {this.props.user.user.name}
+                    </button>
+                    <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a className="dropdown-item item" href="#">Profile</a>
+                        <a className="dropdown-item item" href="#">favorite</a>
+                    </div>
+                </div>
+            )
+        } else {
+            return (
+                <Link to={"/login"}>
+                    DANG NHAP
+                </Link>
+            )
+        }
+    }
+
+    render() {
+        return (
+            <span className="dangNhap">
+                {
+                    this.showUserInfo()
+                }
+            </span>
+        )
+    }
+}
+
+function mapStateToProps(state) {
+    return {
+        user: state.UserInfo
+    }
+}
+
+export default connect(mapStateToProps, GetUserInfo)(ButtonLogin);

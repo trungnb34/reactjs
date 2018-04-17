@@ -23,18 +23,34 @@ body{
     border-top: none !important;
 }
 #footer-copyright .container {
-    text-align: center; 
+    text-align: center;
     font-size: 12px;
     padding: 0px !important;
 }
 #footer>div>div {
     padding-top: 15px;
 }
+.login-box {
+    margin: auto;
+    width: 25%;
+}
+.heart {
+    margin-left: 15px;
+    cursor: pointer;
+}
+.item {
+    background: #7FFF00;
+    color: #000 !important;
+    width: 200px !important;
+}
 #main {
     min-height: 1200px;
 }
 .upercate {
     text-transform: uppercase;
+}
+.dangNhap {
+    display: inline;
 }
 table {
     border-collapse: collapse;

@@ -2,16 +2,18 @@ import React, {Component} from "react";
 import MenuItem from "./menuitem";
 import {Link} from "react-router";
 import Search from "./search";
+import ButtonLogin from "./buttonLogin";
 import { connect } from "react-redux";
-// import { Link } from "react-router";
 import * as cateActions from "../../../actions/cate";
 
 class Menu extends Component {
-    componentDidMount() {
-        // if(this.props.cates == null) {
-            this.props.loadAllCate();
-        // }
+    constructor(props) {
+        super(props);
     }
+    componentDidMount() {
+        this.props.loadAllCate();
+    }
+
     render() {
         return(
             <div id="top-bar">
@@ -31,9 +33,9 @@ class Menu extends Component {
                         </ul>
                     </div>
                     <div className="btn_login">
-                        <a href="http://localhost:8000/login">ĐĂNG NHẬP</a>
+                        <ButtonLogin />
                     </div>
-                    <Search />
+                    {/* <Search /> */}
                 </div>
             </div>
         )
@@ -41,7 +43,8 @@ class Menu extends Component {
 }
 function mapStateToProps(state) {
     return {
-        cates: state.ListCateReducer
+        cates: state.ListCateReducer,
+        user: state.UserInfo
     };
 }
 

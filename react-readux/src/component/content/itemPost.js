@@ -14,6 +14,7 @@ class ItemPost extends Component {
                     <div className="post-header">
                         <div className="post_title">
                             <Link to={"/post/" + this.props.post.slug} className="title upercate">{this.props.post.title}</Link>
+                            <i className="fa fa-heart-o heart" aria-hidden="true"></i>
                         </div>
                     </div>
                     <div className="post-entry">

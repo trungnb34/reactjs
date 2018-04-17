@@ -5,6 +5,7 @@ import PostByCate from "./postByCate";
 import Router from "./router";
 import RelatePost from "./relatePost";
 import DetailPost from "./post";
+import UserInfo from "./user";
 import {createStore, combineReducers, compose, applyMiddleware} from "redux";
 import thunk from "redux-thunk";
 
@@ -15,7 +16,8 @@ const reducers = combineReducers({
     PostByCate,
     Router,
     RelatePost,
-    DetailPost
+    DetailPost,
+    UserInfo
 });
 
 const store = createStore(reducers, applyMiddleware(thunk));
