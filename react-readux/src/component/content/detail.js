@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import RelatedPost from "./relatedPost";
-import BaseAPI from "../../BaseAPI";
+import BaseAPI from "../service/BaseAPI";
 import * as detailPost from "../../actions/detail";
 import {connect} from "react-redux";
 

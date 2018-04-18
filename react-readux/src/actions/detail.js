@@ -1,5 +1,4 @@
-import BaseAPI from "../BaseAPI";
-
+import BaseAPI from "../component/service/BaseAPI";
 export function loadDetailPost(slug) {
     return(dispatch)=>{
         return BaseAPI.get('get-detail-post/' + slug).then(post => {
@@ -10,7 +9,7 @@ export function loadDetailPost(slug) {
 };
 
 export function detailPost(post) {
-    return{
+    return {
         type:"GET_DETAIL_POST",
         post : post
     }

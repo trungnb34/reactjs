@@ -24,7 +24,7 @@ img{max-width:100%;}
 /*end reset*
  */
 .body404{
-    background: url("./bg1.png");
+    background: url("../asset/images/bg1.png");
     margin: auto;
     font-family: "Century Gothic",Arial, Helvetica, sans-serif;
 }

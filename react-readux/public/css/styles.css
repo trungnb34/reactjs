@@ -34,6 +34,10 @@ body{
     margin: auto;
     width: 25%;
 }
+#main.fullwidth {
+    width: 90% !important;
+    /* margin: auto !important; */
+}
 .heart {
     margin-left: 15px;
     cursor: pointer;

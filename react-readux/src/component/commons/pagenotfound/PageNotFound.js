@@ -1,7 +1,9 @@
 import React, {Component} from "react";
-import "./PageNotFound.css";
-import errorImg from "./error-img.png";
 import { Link } from "react-router";
+
+const errorImg = window.location.origin + '/asset/images/error-img.png';
+
+// console.log(window.location);
 
 class PageNotFound extends Component {
     render() {

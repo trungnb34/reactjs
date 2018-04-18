@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+//use GuzzleHttp\Psr7\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Http\Requests\RegisterRequest;
+use App\Validator\RegisterValidate;
 
 
 class RegisterController extends Controller
@@ -31,15 +34,16 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = '/home';
-
+    private $registerValidate;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(RegisterValidate $registerValidate)
     {
         $this->middleware('guest');
+        $this->registerValidate = $registerValidate;
     }
 
     /**
@@ -61,7 +65,7 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return \App\Models\User
      */
     protected function create(array $data)
     {
@@ -88,5 +92,28 @@ class RegisterController extends Controller
         if($userCreate->save()) {
             return redirect()->route('login')->with('log', 'Tạo tài khoản thành công xin vui lòng đăng nhập');
         }
+    }
+
+    public function apiRegister(Request $request) {
+        $data = json_decode($request->getContent(), true);
+        $messages = $this->registerValidate->validateRegister($data);
+        if($messages != null) {
+            return response()->json(['error' => $messages], 200);
+        }
+        if($this->storeUser($data)) {
+            return response()->json(['register' => 'success'], 200);
+        };
+    }
+    private function storeUser(array $data) {
+        $user = new User();
+        $user->email = $data['email'];
+        $user->name = $data['name'];
+        $user->role_id = 2;
+        $user->status = 1;
+        $user->password = bcrypt($data['password']);
+        if($user->save()) {
+            return true;
+        }
+        return false;
     }
 }

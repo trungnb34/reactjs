@@ -19,3 +19,11 @@ Route::get('get-list-post-by-date', 'User\PostController@getListPostByDate');
 Route::get('get-relate-post/{id}', 'User\PostController@getRelatePost');
 
 Route::get('get-all-post-by-tag/{slug}', 'User\PostController@getPostByTag');
+
+Route::post('api-register', 'Auth\RegisterController@apiRegister');
+
+Route::post('api-login', 'Auth\LoginController@apiLogin');
+
+Route::get('get-user-infor', 'Auth\LoginController@getUserInfo');
+
+Route::get('add-favorite/{id}', 'User\PostController@AddFavorite');

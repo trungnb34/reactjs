@@ -2,39 +2,38 @@ import React, {Component} from "react";
 import ItemPost from "./itemPost";
 import {connect} from "react-redux";
 import * as listPostByCate from "../../actions/listPost";
-// import store from "../../reducers/store";
-import BaseAPI from "../../BaseAPI";
+import BaseAPI from "../service/BaseAPI";
 
 class Tag extends Component {
+    
     constructor(props) {
         super(props);
         this.state = {
             tagName: '',
-            posts: []
+            posts: [],
+            favorite: []
         }
     }
+
     componentDidMount() {
-        BaseAPI.get('get-all-post-by-tag/' + this.props.param).then(posts => {
+        this.getData(this.props.param);
+    }
+
+    getData(param) {
+        BaseAPI.get('get-all-post-by-tag/' + param).then(posts => {
             this.state.tagName = posts.data.tagName;
             this.state.posts = posts.data.posts;
+            this.state.favorite = posts.data.favorite
             this.setState(this.state);
         })
     }
-
     componentWillReceiveProps(newProps) {
-        console.log(this.props.param);
-        console.log(newProps.param);
         if(this.props.param !== newProps.param) {
-            BaseAPI.get('get-all-post-by-tag/' + newProps.param).then(posts => {
-                this.state.tagName = posts.data.tagName;
-                this.state.posts = posts.data.posts;
-                // console.log("post => ", posts);
-                this.setState(this.state);
-            })
+            this.getData(newProps.param);
         }
     }
     render() {
-        return(
+        return (
             <div id="main" className="regular category_detail">
                 <div>
                     <h1 className="find_with">
@@ -44,8 +43,8 @@ class Tag extends Component {
                 <br />
                 {
                     this.state.posts.map((post, index) => {
-                        return(
-                            <ItemPost key={index} post={post}/>
+                        return (
+                            <ItemPost key={index} post={post} favorite={this.state.favorite} />
                         )
                     })
                 }

@@ -1,10 +1,11 @@
 import {Router, Route, IndexRoute, browserHistory} from "react-router";
 import React, { Component } from 'react';
-import Home from "./component/home/home";
-import Login from "./component/user/login";
-import Register from "./component/user/register";
-import PageNotFound from "./component/commons/pagenotfound/PageNotFound";
-import Content from "./component/content/content";
+import Home from "../home/home";
+import Login from "../user/login";
+import Register from "../user/register";
+import PageNotFound from "../commons/pagenotfound/PageNotFound";
+import Content from "../content/content";
+import Profile from "../user/profile";
 
 class AppRouter extends Component {
     render() {
@@ -16,6 +17,7 @@ class AppRouter extends Component {
                 <Route path={"tag/:slug"} component={Content}/>
                 <Route path={"login"} component={Login}/>
                 <Route path={"register"} component={Register}/>
+                <Route path={"profile"} component={Profile} />
                 <Route path={"*"} component={PageNotFound}/>
             </Router>
         )

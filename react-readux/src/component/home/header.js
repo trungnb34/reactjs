@@ -8,13 +8,11 @@ class Header extends Component {
         super(props);
         this.logOut = this.logOut.bind(this);
     }
-
     componentWillMount() {
         if(localStorage['access_token'] != undefined) {
             this.props.GetUserInfo();
         }
     }
-
     showUserInfo() {
         if(this.props.user.user.name) {
             return (
@@ -40,6 +38,7 @@ class Header extends Component {
     logOut(e) {
         e.preventDefault();
         localStorage.removeItem('access_token');
+        localStorage.removeItem('login');
         const url = window.location.href;
         window.location.href = url;
     }
@@ -75,11 +74,9 @@ class Header extends Component {
         )
     }
 }
-
 function mapStateToProps(state) {
     return {
         user: state.UserInfo
     }
 }
-
 export default connect(mapStateToProps, UserInfo)(Header);

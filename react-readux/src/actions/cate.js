@@ -1,4 +1,4 @@
-import BaseAPI from "../BaseAPI";
+import BaseAPI from "../component/service/BaseAPI";
 
 export function loadAllCate() {
     return(dispatch)=>{

@@ -2,8 +2,7 @@ import React, {Component} from "react";
 import ItemPost from "./itemPost";
 import {connect} from "react-redux";
 import * as listPostByCate from "../../actions/listPost";
-// import store from "../../reducers/store";
-import BaseAPI from "../../BaseAPI";
+import BaseAPI from "../service/BaseAPI";
 
 class MainContent extends Component {
     constructor(props) {
@@ -35,7 +34,7 @@ class MainContent extends Component {
                 {
                     this.props.posts.posts.map((post, index) => {
                         return(
-                            <ItemPost key={index} post={post}/>
+                            <ItemPost key={index} post={post} favorite={this.props.posts.favorites}/>
                         )
                     })
                 }

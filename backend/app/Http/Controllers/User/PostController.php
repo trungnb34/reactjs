@@ -4,8 +4,10 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Tag;
 
 class PostController extends Controller
 {
@@ -16,7 +18,11 @@ class PostController extends Controller
             ->where('status', 1)
             ->get();
         foreach ($postByDate as $post) {
-            $post->avatar = env('APP_URL').'/ckfinder/images/'. $post->avatar;
+            if(!file_exists(public_path('ckfinder/images/').$post->avatar)) {
+                $post->avatar = env('APP_URL').'/ckfinder/images/default.jpg';
+            } else {
+                $post->avatar = env('APP_URL').'/ckfinder/images/'. $post->avatar;
+            }
         }
          return response()->json(['posts' => $postByDate]);
     }
@@ -24,7 +30,7 @@ class PostController extends Controller
     public function getAllPostByCate($slug) {
         $cates = Db::table('categorys')->select('id', 'name')->where('slug', $slug)->first();
         if($cates) {
-            $posts = DB::table('posts')
+             $posts = DB::table('posts')
                 ->join('users', 'users.id', '=', 'posts.user_id')
                 ->join('category_posts', 'category_posts.post_id', '=', 'posts.id')
                 ->join('categorys', 'category_posts.category_id', '=', 'categorys.id')
@@ -32,11 +38,18 @@ class PostController extends Controller
                 ->where(['categorys.slug' => $slug, 'posts.status' => 1])
                 ->orWhere('categorys.parent_id', $cates->id)
                 ->get();
+            $favorites = DB::table('favorite')
+                ->join('users', 'users.id', '=', 'favorite.user_id')
+                ->select('favorite.post_id')
+                ->get();
             foreach ($posts as $post) {
-//                $post->avatar = Storage::disk('public')->url($post->avatar);
-                $post->avatar = env('APP_URL').'/ckfinder/images/'. $post->avatar;
+                if(!file_exists(public_path('ckfinder/images/').$post->avatar)) {
+                    $post->avatar = env('APP_URL').'/ckfinder/images/default.jpg';
+                } else {
+                    $post->avatar = env('APP_URL').'/ckfinder/images/'. $post->avatar;
+                }
             }
-            return response()->json(['posts' => $posts, 'cateName' => $cates->name], 200);
+            return response()->json(['posts' => $posts, 'cateName' => $cates->name, 'favorites' => $favorites], 200);
         }
         return response()->json(['errors' => "khong ton tai category"], 401);
     }
@@ -62,26 +75,54 @@ class PostController extends Controller
             ->limit(3)
             ->get();
         foreach ($relatePosts as $post) {
-//            $post->avatar = Storage::disk('public')->url($post->avatar);
-            $post->avatar = env('APP_URL').'/ckfinder/images/'. $post->avatar;
+            if(!file_exists(public_path('ckfinder/images/').$post->avatar)) {
+                $post->avatar = env('APP_URL').'/ckfinder/images/default.jpg';
+            } else {
+                $post->avatar = env('APP_URL').'/ckfinder/images/'. $post->avatar;
+            }
         }
         return response()->json(['posts' => $relatePosts], 200);
     }
 
     public function getPostByTag($slug) {
+        $user = Auth()->guard('api')->user();
         $tagName = DB::table('tags')->select('name')->where('slug', $slug)->first();
         $posts = DB::table('posts')
             ->join('users', 'users.id', '=', 'posts.user_id')
             ->join('tag_posts', 'tag_posts.post_id', '=', 'posts.id')
+            ->leftJoin('favorite', 'posts.id', '=', 'favorite.post_id')
             ->join('tags', 'tag_posts.tag_id', '=', 'tags.id')
             ->select('posts.id', 'posts.created_at', 'posts.abstract', 'posts.slug', 'posts.title', 'posts.avatar', 'users.id as userId', 'users.name as userName')
             ->where(['tags.slug' => $slug, 'posts.status' => 1])
             ->get();
-        foreach ($posts as $post) {
-//            $post->avatar = Storage::disk('public')->url($post->avatar);
-            $post->avatar = env('APP_URL').'/ckfinder/images/'. $post->avatar;
+        $favorites = null;
+        if($user) {
+            $favorites = DB::table('favorite')
+                ->join('users', 'users.id', '=', 'favorite.user_id')
+                ->select('favorite.post_id')
+                ->get();
         }
-//        dd($tagName);
-        return response()->json(['posts' => $posts, 'tagName' => $tagName->name], 200);
+        foreach ($posts as $post) {
+            if(!file_exists(public_path('ckfinder/images/').$post->avatar)) {
+                $post->avatar = env('APP_URL').'/ckfinder/images/default.jpg';
+            } else {
+                $post->avatar = env('APP_URL').'/ckfinder/images/'. $post->avatar;
+            }
+        }
+        return response()->json(['posts' => $posts, 'tagName' => $tagName->name, 'favorite' => $favorites], 200);
+    }
+
+    public function AddFavorite($id) {
+        $user = Auth()->guard('api')->user();
+        $favorite = DB::table('favorite')->where(['user_id' => $user->id, 'post_id' => $id])->count();
+        if($favorite == 0) {
+            DB::table('favorite')->insert([
+                'user_id' => $user->id,
+                'post_id' => $id
+            ]);
+        } else {
+            DB::table('favorite')->where(['post_id' => $id, 'user_id' => $user->id])->delete();
+        }
+        return response()->json(['action' => true]);
     }
 }

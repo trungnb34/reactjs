@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Http\Requests\LoginRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -56,10 +57,18 @@ class LoginController extends Controller
     public function login(LoginRequest $request) {
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             if($request->rememberMe) {
-//                Cookie::make('remenber', 'value', 3660);
             }
             return redirect()->route('list-post', 1);
         }
         return redirect()->back()->with('error', 'Tài khoản hoặc mật khẩu không chính xác');
+    }
+
+    public function apiLogin(Request $request) {
+
+    }
+
+    public function getUserInfo() {
+
+        return response()->json(['user' => Auth()->guard('api')->user()]);
     }
 }

@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import BaseAPI from "../../BaseAPI";
-
+import BaseAPI from "../service/BaseAPI";
+import {Link} from "react-router";
 
 class Register extends Component {
     constructor(props) {
@@ -149,8 +149,7 @@ class Register extends Component {
                             </div>
                         </div>
                     </form>
-                    <a href="#">I forgot my password</a><br />
-                    <a href="register.html" className="text-center">Register a new membership</a>
+                    <Link to={"/login"} className="text-center">Login as membership</Link>
                 </div>
             </div>
         )

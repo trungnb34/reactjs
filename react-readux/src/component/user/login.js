@@ -1,6 +1,7 @@
 import React, {Component} from "react";
-import BaseAPI from "../../BaseAPI";
+import BaseAPI from "../service/BaseAPI";
 import axios from "axios";
+import {Link} from "react-router";
 
 class Login extends Component {
     constructor(props) {
@@ -56,6 +57,7 @@ class Login extends Component {
                     const responseData = response.data;
                     const accessToken = this.maHoaAccToken(responseData.access_token);
                     localStorage.setItem('access_token', accessToken);
+                    localStorage.setItem('login', true);
                     window.location.href = 'http://localhost:3000/';
                           
                 })
@@ -126,8 +128,7 @@ class Login extends Component {
                             </div>
                         </div>
                     </form>
-                    <a href="#">I forgot my password</a><br />
-                    <a href="register.html" className="text-center">Register a new membership</a>
+                    <Link to={"/register"} className="text-center">Register a new membership</Link>
                 </div>
             </div>
         )

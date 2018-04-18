@@ -1,13 +1,13 @@
 import React, {Component} from "react";
 import ItemRelatedPost from "./itemRelatedPost";
-import BaseAPI from "../../BaseAPI";
+import BaseAPI from "../service/BaseAPI";
 import * as relatePost from "../../actions/relatePost";
 import {connect} from "react-redux";
 
 class RelatedPost extends Component {
     constructor(props) {
         super(props);
-        this.state={
+        this.state = {
             posts: []
         }
     }
