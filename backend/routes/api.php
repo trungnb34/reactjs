@@ -26,4 +26,8 @@ Route::post('api-login', 'Auth\LoginController@apiLogin');
 
 Route::get('get-user-infor', 'Auth\LoginController@getUserInfo');
 
-Route::get('add-favorite/{id}', 'User\PostController@AddFavorite');
+Route::get('add-favorite/{id}', 'User\PostController@addFavorite');
+
+Route::get('get-favorite', 'User\PostController@getFavorite');
+
+Route::post('update-profile', 'User\UserController@updateProfile');

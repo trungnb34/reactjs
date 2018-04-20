@@ -68,7 +68,6 @@ class LoginController extends Controller
     }
 
     public function getUserInfo() {
-
         return response()->json(['user' => Auth()->guard('api')->user()]);
     }
 }

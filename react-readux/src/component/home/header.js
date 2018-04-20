@@ -21,8 +21,8 @@ class Header extends Component {
                         {this.props.user.user.name}
                     </button>
                     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a className="dropdown-item item" href="#">Action</a>
-                        <a className="dropdown-item item" href="#">Another action</a>
+                        <Link className="dropdown-item item" to={"/profile"}>Profile</Link>
+                        <Link className="dropdown-item item" to={"/favorite"}>favorite</Link>
                     </div>
                 </div>
             )

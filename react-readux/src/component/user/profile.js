@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import Menu from "../layout/menu/menu";
 import {connect} from "react-redux";
 import * as GetUserInfo from "../../actions/user";
+import {Link} from "react-router";
 
 class Profile extends Component {
     constructor(props) {
@@ -41,6 +42,7 @@ class Profile extends Component {
                             </div>
                         </div>
                     </article>
+                    <Link to={"update-profile"}>Update Profile</Link>
                 </div>
             </div>
         )

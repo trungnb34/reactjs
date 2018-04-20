@@ -17,8 +17,8 @@ class ButtonLogin extends Component {
                         {this.props.user.user.name}
                     </button>
                     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a className="dropdown-item item" href="#">Profile</a>
-                        <a className="dropdown-item item" href="#">favorite</a>
+                        <Link className="dropdown-item item" to={"/profile"}>Profile</Link>
+                        <Link className="dropdown-item item" to={"/favorite"}>favorite</Link>
                     </div>
                 </div>
             )

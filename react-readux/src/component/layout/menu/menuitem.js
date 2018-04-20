@@ -5,9 +5,6 @@ class MenuItem extends Component {
     onClick() {
         console.log("tring");
     }
-    // componentDidMount() {
-    //     console.log("tring");
-    // }
     render() {
         return (
             <li id="menu-item-21" className="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-21">

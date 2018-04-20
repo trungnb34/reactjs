@@ -2,15 +2,15 @@ import React, {Component} from "react";
 import ItemPost from "./itemPost";
 import {connect} from "react-redux";
 import * as listPostByCate from "../../actions/listPost";
-import BaseAPI from "../service/BaseAPI";
+// import BaseAPI from "../service/BaseAPI";
 
 class MainContent extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            cateName: '',
-            posts: []
-        }
+        // this.state = {
+        //     cateName: '',
+        //     posts: []
+        // }
     }
     componentDidMount() {
         this.props.filterPostByCate(this.props.param);

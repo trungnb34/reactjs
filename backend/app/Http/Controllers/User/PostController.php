@@ -29,6 +29,7 @@ class PostController extends Controller
 
     public function getAllPostByCate($slug) {
         $cates = Db::table('categorys')->select('id', 'name')->where('slug', $slug)->first();
+        $user = Auth()->guard('api')->user();
         if($cates) {
              $posts = DB::table('posts')
                 ->join('users', 'users.id', '=', 'posts.user_id')
@@ -38,10 +39,14 @@ class PostController extends Controller
                 ->where(['categorys.slug' => $slug, 'posts.status' => 1])
                 ->orWhere('categorys.parent_id', $cates->id)
                 ->get();
-            $favorites = DB::table('favorite')
-                ->join('users', 'users.id', '=', 'favorite.user_id')
-                ->select('favorite.post_id')
-                ->get();
+            $favorites = null;
+            if($user) {
+                $favorites = DB::table('favorite')
+                    ->join('users', 'users.id', '=', 'favorite.user_id')
+                    ->select('favorite.post_id')
+                    ->where('favorite.user_id', $user->id)
+                    ->get();
+            }
             foreach ($posts as $post) {
                 if(!file_exists(public_path('ckfinder/images/').$post->avatar)) {
                     $post->avatar = env('APP_URL').'/ckfinder/images/default.jpg';
@@ -100,6 +105,7 @@ class PostController extends Controller
             $favorites = DB::table('favorite')
                 ->join('users', 'users.id', '=', 'favorite.user_id')
                 ->select('favorite.post_id')
+                ->where('favorite.user_id', $user->id)
                 ->get();
         }
         foreach ($posts as $post) {
@@ -112,7 +118,7 @@ class PostController extends Controller
         return response()->json(['posts' => $posts, 'tagName' => $tagName->name, 'favorite' => $favorites], 200);
     }
 
-    public function AddFavorite($id) {
+    public function addFavorite($id) {
         $user = Auth()->guard('api')->user();
         $favorite = DB::table('favorite')->where(['user_id' => $user->id, 'post_id' => $id])->count();
         if($favorite == 0) {
@@ -124,5 +130,23 @@ class PostController extends Controller
             DB::table('favorite')->where(['post_id' => $id, 'user_id' => $user->id])->delete();
         }
         return response()->json(['action' => true]);
+    }
+
+    public function getFavorite() {
+        $user = Auth()->guard('api')->user();
+        $posts = DB::table('posts')
+                    ->join('favorite', 'favorite.post_id', '=', 'posts.id')
+                    ->select('posts.*')
+                    ->where('favorite.user_id', $user->id)
+                    ->get();
+        $favorites = DB::table('favorite')->where('user_id', $user->id)->get();
+        foreach ($posts as $post) {
+            if(!file_exists(public_path('ckfinder/images/').$post->avatar)) {
+                $post->avatar = env('APP_URL').'/ckfinder/images/default.jpg';
+            } else {
+                $post->avatar = env('APP_URL').'/ckfinder/images/' . $post->avatar;
+            }
+        }
+        return response()->json(['posts' => $posts, 'favorites' => $favorites], 200);
     }
 }

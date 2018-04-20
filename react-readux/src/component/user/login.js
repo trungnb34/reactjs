@@ -2,18 +2,25 @@ import React, {Component} from "react";
 import BaseAPI from "../service/BaseAPI";
 import axios from "axios";
 import {Link} from "react-router";
+import Validator from 'ree-validate';
+import classnames from 'classnames';
 
 class Login extends Component {
     constructor(props) {
         super(props);
+
+        this.validator = new Validator(this.rulesValidator());
+
         this.state = {
-            email: '',
-            password: '',
-            formValidate : {email: '', password: ''},
-            error: ''
+            formData: {
+                email: '',
+                password: '',
+            },
+            errorFromServer: '',
+            errors: this.validator.errors,
         }
         this.handerFiledInput = this.handerFiledInput.bind(this);
-        this.onSubmitLogin = this.onSubmitLogin.bind(this);
+        this.validateAndSubmit = this.validateAndSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -23,6 +30,13 @@ class Login extends Component {
                     window.location.href = "http://localhost:3000/"
                 }
             })
+        }
+    }
+
+    rulesValidator() {
+        return {
+            email: 'required|email',
+            password: 'required|min:7',
         }
     }
 
@@ -38,64 +52,58 @@ class Login extends Component {
     handerFiledInput(e) {
         const name = e.target.name;
         const value = e.target.value;
-        this.state.formValidate[name] = "";
-        this.state.error = "";
-        this.setState({[name]: value});
-    }
-
-    onSubmitLogin() {
-        if(this.formValidate()) {
-            const data = {
-                client_id: 2,
-                client_secret: "4e6kmkuZv5TxaVyS1g7MWRQdUEa4T0ceI7XsK99W",
-                username: this.state.email,
-                password: this.state.password,
-                grant_type : "password"
-            }
-            axios.post('http://localhost:8000/oauth/token', data)
-                .then(response => {
-                    const responseData = response.data;
-                    const accessToken = this.maHoaAccToken(responseData.access_token);
-                    localStorage.setItem('access_token', accessToken);
-                    localStorage.setItem('login', true);
-                    window.location.href = 'http://localhost:3000/';
-                          
-                })
-                .catch (response => {
-                    this.setState({error: 'Ten tai khoan hoac mat khau khong chinh xac'});
-                });
-        }
-    }
-
-    formValidate() {
-        this.state.formValidate.email = this.validateField('email', this.state.email);
-        this.state.formValidate.password = this.validateField('password', this.state.password);
+        const { errors } = this.validator;
+        this.state.formData[name] = value;
+        this.state.errorFromServer = '';
         this.setState(this.state);
-        if(!this.state.formValidate.email && !this.state.formValidate.password) {
-            return true;
-        }
-        return false;
+        errors.remove(name);
+        this.validator.validate(name, value)
+            .then(() => {
+                this.setState({ errors })
+        })
     }
 
-    validateField(name, value) {
-        switch(name) {
-            case 'email':
-                if(value == "") {
-                    return "Email is required !";
-                } else if(!value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
-                    return "Email is valid !";
-                }
-                break;
-            case 'password':
-                if(value == "") {
-                    return "Password is required !";
-                }
-                break;
+    onSubmit() {
+        const data = {
+            client_id: 2,
+            client_secret: "4e6kmkuZv5TxaVyS1g7MWRQdUEa4T0ceI7XsK99W",
+            username: this.state.formData.email,
+            password: this.state.formData.password,
+            grant_type : "password"
         }
+        axios.post('http://localhost:8000/oauth/token', data)
+            .then(response => {
+                const responseData = response.data;
+                const accessToken = this.maHoaAccToken(responseData.access_token);
+                localStorage.setItem('access_token', accessToken);
+                localStorage.setItem('login', true);
+                window.location.href = 'http://localhost:3000/';
+                        
+            })
+            .catch (response => {
+                this.setState({errorFromServer: 'Ten tai khoan hoac mat khau khong chinh xac'});
+            });
     }
 
+    validateAndSubmit(e) {
+        e.preventDefault();
+
+        const {formData} = this.state;
+        const {errors} = this.state;
+
+        this.validator.validateAll(formData).then(
+            success => {
+                if (success) {
+                    this.onSubmit();
+                } else {
+                    this.setState({ errors });
+                }
+            }
+        )
+    }
 
     render() {
+        const { errors } = this.state;
         return (
             <div className="login-box">
                 <div className="login-logo">
@@ -103,18 +111,34 @@ class Login extends Component {
                 </div>
                 <div className="login-box-body">
                     <p className="login-box-msg">Sign in to start your session</p>
-                    <strong>{this.state.error}</strong>
-                    <form>
+                    <strong>{this.state.errorFromServer}</strong>
+                    <form onSubmit={this.validateAndSubmit} method="post">
                         <div className="form-group has-feedback">
-                            <input type="email" name="email" className="form-control" placeholder="Email" onChange={this.handerFiledInput}/>
+                            <input 
+                                type="text" 
+                                name="email"
+                                className="form-control" 
+                                placeholder="Email" 
+                                onChange={this.handerFiledInput}
+                            />
                             <span className="glyphicon glyphicon-envelope form-control-feedback"></span>
                         </div>
-                        <strong>{this.state.formValidate.email}</strong>
+                        { errors.has('email') &&
+                            <label id="name-error" className="error" htmlFor="email">{ errors.first('email') }</label>
+                        }
                         <div className="form-group has-feedback">
-                            <input type="password" name="password" className="form-control" placeholder="Password" onChange={this.handerFiledInput} />
+                            <input 
+                                type="password" 
+                                name="password"
+                                className="form-control" 
+                                placeholder="Password"
+                                onChange={this.handerFiledInput} 
+                                />
                             <span className="glyphicon glyphicon-lock form-control-feedback"></span>
                         </div>
-                        <strong>{this.state.formValidate.password}</strong>
+                        { errors.has('password') &&
+                            <label id="name-error" className="error" htmlFor="email">{ errors.first('password') }</label>
+                        }
                         <div className="row">
                             <div className="col-xs-8">
                             <div className="checkbox icheck">
@@ -124,7 +148,7 @@ class Login extends Component {
                             </div>
                             </div>
                             <div className="col-xs-4">
-                                <button type="button" onClick={this.onSubmitLogin} className="btn btn-primary btn-block btn-flat">Sign In</button>
+                                <button type="submit" className="btn btn-primary btn-block btn-flat">Sign In</button>
                             </div>
                         </div>
                     </form>

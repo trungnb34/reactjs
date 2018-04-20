@@ -6,6 +6,10 @@ import Router from "./router";
 import RelatePost from "./relatePost";
 import DetailPost from "./post";
 import UserInfo from "./user";
+import GetFavorite from "./getFavorite";
+import UpdateProfile from "./updateProfile";
+
+
 import {createStore, combineReducers, compose, applyMiddleware} from "redux";
 import thunk from "redux-thunk";
 
@@ -17,7 +21,9 @@ const reducers = combineReducers({
     Router,
     RelatePost,
     DetailPost,
-    UserInfo
+    UserInfo,
+    GetFavorite,
+    UpdateProfile
 });
 
 const store = createStore(reducers, applyMiddleware(thunk));

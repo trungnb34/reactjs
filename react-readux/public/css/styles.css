@@ -43,7 +43,7 @@ body{
     cursor: pointer;
 }
 .item {
-    background: #7FFF00;
+    /* background: #7FFF00; */
     color: #000 !important;
     width: 200px !important;
 }

@@ -6,6 +6,8 @@ import Register from "../user/register";
 import PageNotFound from "../commons/pagenotfound/PageNotFound";
 import Content from "../content/content";
 import Profile from "../user/profile";
+import UpdateProfile from "../user/updateProfile";
+import Favorite from "../user/favorite";
 
 class AppRouter extends Component {
     render() {
@@ -18,6 +20,8 @@ class AppRouter extends Component {
                 <Route path={"login"} component={Login}/>
                 <Route path={"register"} component={Register}/>
                 <Route path={"profile"} component={Profile} />
+                <Route path={"update-profile"} component={UpdateProfile} />
+                <Route path={"favorite"} component={Favorite} />                
                 <Route path={"*"} component={PageNotFound}/>
             </Router>
         )
