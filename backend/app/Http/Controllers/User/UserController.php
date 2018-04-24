@@ -17,12 +17,6 @@ class UserController extends Controller
     }
 
     public function updateProfile(Request $request) {
-//        if($request->file('avatar')) {
-//            dd('co file');
-////            dd($request->file('avatar'));
-//        } else {
-//            dd('khong co file');
-//        }
         $data = json_decode($request->getContent(), true);
         $message = $this->validateUpdateProfile->validate($data);
         if($message != null) {

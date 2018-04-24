@@ -1,7 +1,5 @@
 import React, {Component} from "react";
 import Menu from "../layout/menu/menu";
-import {connect} from "react-redux";
-import * as GetUserInfo from "../../actions/user";
 import {Link} from "react-router";
 import Validator from "ree-validate";
 import BaseAPI from "../service/BaseAPI";
@@ -21,7 +19,7 @@ class UpdateProfile extends Component {
                 phone_number: '',
                 password: '',
                 avatar: null,
-                file_avatar: File
+                file_avatar: ''
             },
             userData: {},
             errors: this.validator.errors,
@@ -76,15 +74,19 @@ class UpdateProfile extends Component {
             this.setState({ errors });
         })
     }
-
+    deleteToken() {
+        return new Promise((resolve, reject) => {
+            while(localStorage['access_token'] || localStorage['token']) {
+                localStorage.removeItem('access_token');
+                localStorage.removeItem('login');
+            }
+            resolve();
+        })
+    }
     onSubmit(formData) {
         BaseAPI.post('update-profile', formData).then(res => {
+            console.log(formData);
             alert('Ban da update thong tin thanh cong');
-            localStorage.removeItem('access_token');
-            localStorage.removeItem('login');
-            window.localStorage.href = window.location.host + '/login';
-            console.log(window.location.host + '/login');
-            // console.log('12345678 => ', res.data.action);
         })
     }
 
@@ -92,7 +94,6 @@ class UpdateProfile extends Component {
         e.preventDefault();
         const {formData} = this.state;
         const {errors} = this.state;
-        // console.log(formData);
         this.validator.validateAll(formData).then(
             success => {
                 if(success && this.checkNullDataForm()) {
@@ -205,9 +206,4 @@ class UpdateProfile extends Component {
         )
     }
 }
-// function mapStateToProps(state) {
-//     return {
-//         user: state.UserInfo
-//     }
-// }
 export default UpdateProfile;
