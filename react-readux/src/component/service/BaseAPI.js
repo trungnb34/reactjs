@@ -25,6 +25,7 @@ const BaseAPI = axios.create(
             'Access-Control-Allow-Origin' : '*',
             'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
             'Access-Control-Allow-Headers' : 'Origin, Content-Type, X-Auth-Token',
+            'Content-Type' : 'application/x-www-form-urlencoded'
         }
     }
 );

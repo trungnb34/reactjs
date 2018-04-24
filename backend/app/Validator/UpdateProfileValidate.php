@@ -15,13 +15,12 @@ class UpdateProfileValidate
         $rules = [
             'email' => 'email',
             'phone_number' => 'numeric',
-            'new_password' => 'min:8'
+            'password' => 'min:8'
         ];
         $validator = Validator::make($data, $rules);
 
         if($validator->fails()) {
             return $validator->messages();
         }
-
     }
 }

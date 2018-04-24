@@ -20,8 +20,10 @@ class UpdateProfile extends Component {
                 full_name : '',
                 phone_number: '',
                 password: '',
-                avatar: null
+                avatar: null,
+                file_avatar: File
             },
+            userData: {},
             errors: this.validator.errors,
             errorsFromServer: {}
         }
@@ -31,27 +33,45 @@ class UpdateProfile extends Component {
         return {
             password: 'min:8',
             phone_number: 'numeric',
+            name: 'alpha_num',
+            full_name: 'alpha_spaces',
             email: 'email'
         }
     }
 
-    componentDidMount() {
+    componentWillMount() {
         if(localStorage['access_token'] == undefined) {
             window.location.href = window.history.back();
         }
-        this.props.GetUserInfo();
+        function getUserData() {
+            return new Promise((resolve, reject) => {
+                BaseAPI.get('get-user-infor')
+                .then(user => {
+                    resolve(user.data.user);
+                }).catch( err => {
+                    reject('error roi ');
+                })
+            });
+        }
+        getUserData().then(user => {
+            var fields = ['email', 'name', 'full_name', 'phone_number', 'avatar'];
+            for(var i = 0; i < fields.length; i++) {
+                this.state.formData[fields[i]] = user[fields[i]];
+            }
+            this.setState(this.state);
+        }).catch(error => {
+            console.log(error);
+        })
     }
 
     handerChange(e) {
         const name = e.target.name;
         const value = e.target.value;
         this.state.formData[name] = value;
-        this.state.errorsFromServer = [];
         this.setState(this.state);
         const { errors } = this.state;
 
         errors.remove(name);
-
         this.validator.validate(name, value).then(() => {
             this.setState({ errors });
         })
@@ -59,7 +79,12 @@ class UpdateProfile extends Component {
 
     onSubmit(formData) {
         BaseAPI.post('update-profile', formData).then(res => {
-            console.log(res.data.action);
+            alert('Ban da update thong tin thanh cong');
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('login');
+            window.localStorage.href = window.location.host + '/login';
+            console.log(window.location.host + '/login');
+            // console.log('12345678 => ', res.data.action);
         })
     }
 
@@ -67,7 +92,7 @@ class UpdateProfile extends Component {
         e.preventDefault();
         const {formData} = this.state;
         const {errors} = this.state;
-        console.log(formData);
+        // console.log(formData);
         this.validator.validateAll(formData).then(
             success => {
                 if(success && this.checkNullDataForm()) {
@@ -93,20 +118,10 @@ class UpdateProfile extends Component {
     }
 
     changeImage(e) {
-        // console.log(e.target.value);
-        // console.log('avatar', e.target.value);
-        // console.log('avatar', e.target.name);        
-        // var formData = new FormData();
-        // formData.append('avatar', e.target.value, e.target.name);
-        // this.state.formData.avatar = formData;
-        // this.setState(this.state);
-        // console.log(formData);
-        let files = e.target.files || e.dataTransfer.files;
-        // console.log(files[0]);
-        if(!files.length) {
-            return;
-        }
-        this.createImage(files[0]);
+        var formData = new FormData();
+        formData.append('avatar', e.target.value, e.target.name);
+        this.state.formData.avatar = formData;
+        this.setState(this.state);
     }
     createImage(file) {
         let reader = new FileReader();
@@ -116,12 +131,6 @@ class UpdateProfile extends Component {
         reader.readAsDataURL(file);
     }
 
-    // fileUpload(image){
-    //     const url = 'http://localhost:8000/api/fileupload';
-    //     const formData = {file: this.state.image}
-    //     return  post(url, formData)
-    //             .then(response => console.log(response))
-    // }
     render() {
         const {errors} = this.state;
         return(
@@ -133,7 +142,7 @@ class UpdateProfile extends Component {
                             <div className="col-sm-8">
                                 <div className="form-group">
                                     <label htmlFor="exampleInputEmail1">Email address</label>
-                                    <input name="email" onChange={this.handerChange} type="email" className="form-control"  aria-describedby="emailHelp" placeholder="Enter email" value={this.props.user.user.email} />
+                                    <input name="email" onChange={this.handerChange} type="email" className="form-control" placeholder="Enter email" value={this.state.formData.email} />
                                 </div>
                                 {
                                     errors.has('email') && 
@@ -141,15 +150,23 @@ class UpdateProfile extends Component {
                                 }
                                 <div className="form-group">
                                     <label htmlFor="exampleInputPassword1">Name</label>
-                                    <input name="name" onChange={this.handerChange}  type="text" className="form-control"  placeholder="Name" value={this.props.user.user.name} />
+                                    <input name="name" onChange={this.handerChange}  type="text" className="form-control"  placeholder="Name" value={this.state.formData.name} />
                                 </div>
+                                {
+                                    errors.has('name') && 
+                                    <label id="name-error" className="error" htmlFor="email">{ errors.first('name') }</label>
+                                }
                                 <div className="form-group">
                                     <label htmlFor="exampleInputPassword1">Full Name</label>
-                                    <input name="full_name" onChange={this.handerChange}  type="text" className="form-control" placeholder="Full name" value={this.props.user.user.full_name} />
+                                    <input name="full_name" onChange={this.handerChange}  type="text" className="form-control" placeholder="Full name" value={this.state.formData.full_name} />
                                 </div>
+                                {
+                                    errors.has('full_name') && 
+                                    <label id="name-error" className="error" htmlFor="email">{ errors.first('full_name') }</label>
+                                }
                                 <div className="form-group">
                                     <label htmlFor="exampleInputPassword1">Phone number</label>
-                                    <input name="phone_number" onChange={this.handerChange}  type="text" className="form-control" placeholder="Phone number" value={this.props.user.user.phone_number} />
+                                    <input name="phone_number" onChange={this.handerChange}  type="text" className="form-control" placeholder="Phone number" value={this.state.formData.phone_number} />
                                 </div>
                                 {
                                     errors.has('phone_number') && 
@@ -175,7 +192,7 @@ class UpdateProfile extends Component {
                                 <button type="submit" className="btn btn-success">Update</button>
                             </div>
                             <div className="col-sm-3">
-                                <img className="img_author alignright wp-image-70 size-full show-avatar" src={this.props.user.user.avatar} alt="aboutpage" width="380" height="380" sizes="(max-width: 380px) 100vw, 380px" />
+                                <img className="img_author alignright wp-image-70 size-full show-avatar" src={this.state.formData.avatar} alt="aboutpage" width="380" height="380" sizes="(max-width: 380px) 100vw, 380px" />
                                 <div className="form-group">
                                     <label htmlFor="choose-file">Chon anh</label>
                                     <input type="file" className="form-control-file" onChange={this.changeImage} id="choose-file" aria-describedby="fileHelp" />
@@ -188,9 +205,9 @@ class UpdateProfile extends Component {
         )
     }
 }
-function mapStateToProps(state) {
-    return {
-        user: state.UserInfo
-    }
-}
-export default connect(mapStateToProps, GetUserInfo)(UpdateProfile);
+// function mapStateToProps(state) {
+//     return {
+//         user: state.UserInfo
+//     }
+// }
+export default UpdateProfile;

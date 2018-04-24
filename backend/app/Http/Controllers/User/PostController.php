@@ -24,7 +24,7 @@ class PostController extends Controller
                 $post->avatar = env('APP_URL').'/ckfinder/images/'. $post->avatar;
             }
         }
-         return response()->json(['posts' => $postByDate]);
+        return response()->json(['posts' => $postByDate]);
     }
 
     public function getAllPostByCate($slug) {

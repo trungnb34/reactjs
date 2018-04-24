@@ -68,6 +68,12 @@ class LoginController extends Controller
     }
 
     public function getUserInfo() {
+        $user = Auth()->guard('api')->user();
+        if(file_exists(public_path('ckfinder/images/').$user->avatar)) {
+            $user->avatar = env('APP_URL').'/ckfinder/images/' . $user->avatar;
+        } else {
+            $user->avatar = env('APP_URL').'/ckfinder/images/default.jpg';
+        }
         return response()->json(['user' => Auth()->guard('api')->user()]);
     }
 }
