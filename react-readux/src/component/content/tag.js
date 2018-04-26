@@ -21,6 +21,7 @@ class Tag extends Component {
 
     getData(param) {
         BaseAPI.get('get-all-post-by-tag/' + param).then(posts => {
+            document.title = posts.data.tagName;
             this.state.tagName = posts.data.tagName;
             this.state.posts = posts.data.posts;
             this.state.favorite = posts.data.favorite

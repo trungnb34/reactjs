@@ -13,11 +13,13 @@ class Detail extends Component {
     }
     componentWillMount() {
         BaseAPI.get('get-detail-post/' + this.props.param).then(post => {
+            document.title = post.data.post.title;
             this.setState({post: post.data.post});
         })
     }
     componentWillReceiveProps(newProps) {
         BaseAPI.get('get-detail-post/' + newProps.param).then(post => {
+            document.title = post.data.post.title;
             this.setState({post: post.data.post});
         })
     }
@@ -41,9 +43,13 @@ class Detail extends Component {
                     <div className="post-meta">                                                                                                      
                         <div className="post-share">
                             <p>Hãy chia sẻ bài viết đến bạn bè của bạn:</p>
-                            <a target="_blank" href="#"><i className="fa fa-facebook"></i></a>
-                            <a target="_blank" href="#"><i className="fa fa-twitter"></i></a>
-                            <a target="_blank" href="#"><i className="fa fa-google-plus"></i></a>
+                            <a target="_blank" href="#">
+                                <div className="fb-share-button" data-href="http://localhost:3000" data-layout="button" data-size="small" data-mobile-iframe="true"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A3000%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"></a>
+                                </div>
+                            </a>
+                            <a target="_blank" href="#">
+                                <div class="g-plus" data-action="share"></div>
+                            </a>
                         </div>
                     </div>
                 </article>

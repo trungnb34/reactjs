@@ -13,6 +13,7 @@ class MainContent extends Component {
         // }
     }
     componentDidMount() {
+        // document.title = post.data.post.title;
         this.props.filterPostByCate(this.props.param);
     }
 
