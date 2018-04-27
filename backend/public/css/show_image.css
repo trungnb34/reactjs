@@ -1,0 +1,25 @@
+ul.image li {
+    list-style: none;
+    display: inline;
+}
+div.list-image {
+    border: 1px solid red;
+    width: 95%;
+}
+ul.image li img {
+    width: 100px;
+    border: 2px solid #baaa5a;
+    height: auto;
+}
+ul.image li img.active {
+    border: 4px solid #baaa5a;
+    overflow: scroll;
+}
+div.img-show {
+    width: 400px;
+    margin: auto;
+}
+div.img-show img {
+    width: 400px;
+    height: auto;
+}

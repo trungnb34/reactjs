@@ -44,4 +44,12 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/delete/{slug}', 'Admin\PostController@delete');
 
     Route::get('/detail/{slug}', 'Admin\PostController@detail');
+
+    Route::get('/upload-file', 'Admin\HandlerImageController@uploadFile');
+
+    Route::post('/upload-file', 'Admin\HandlerImageController@store');
+
+    Route::get('/album', 'Admin\HandlerImageController@list')->name('album');
+
+    Route::get('/album-detail/{slug}', 'Admin\HandlerImageController@detail');
 });

@@ -43,6 +43,7 @@ class Detail extends Component {
                     <div className="post-meta">                                                                                                      
                         <div className="post-share">
                             <p>Hãy chia sẻ bài viết đến bạn bè của bạn:</p>
+                            {/* <strong>123456</strong> */}
                             <a target="_blank" href="#">
                                 <div className="fb-share-button" data-href="http://localhost:3000" data-layout="button" data-size="small" data-mobile-iframe="true"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A3000%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"></a>
                                 </div>

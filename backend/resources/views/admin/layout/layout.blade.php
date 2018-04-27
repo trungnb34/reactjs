@@ -79,10 +79,10 @@
               <li class="user-body">
                 <div class="row">
                   <div class="col-xs-4 text-center">
-                    <a href="#">Followers</a>
+                    <a href="{{ url('upload-file') }}">Upload images</a>
                   </div>
                   <div class="col-xs-4 text-center">
-                    <a href="#">Sales</a>
+                    <a href="{{ url('album') }}">Albums</a>
                   </div>
                   <div class="col-xs-4 text-center">
                     <a href="#">Friends</a>
