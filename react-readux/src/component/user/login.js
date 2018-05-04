@@ -4,6 +4,7 @@ import axios from "axios";
 import {Link} from "react-router";
 import Validator from 'ree-validate';
 import classnames from 'classnames';
+import * as CSS from 'http://fonts.googleapis.com/css?family=Roboto:300,400';
 
 class Login extends Component {
     constructor(props) {
@@ -105,56 +106,84 @@ class Login extends Component {
     render() {
         const { errors } = this.state;
         return (
-            <div className="login-box">
-                <div className="login-logo">
-                    <a href=""><b>Admin</b>LTE</a>
-                </div>
-                <div className="login-box-body">
-                    <p className="login-box-msg">Sign in to start your session</p>
-                    <strong>{this.state.errorFromServer}</strong>
-                    <form onSubmit={this.validateAndSubmit} method="post">
-                        <div className="form-group has-feedback">
-                            <input 
-                                type="text" 
-                                name="email"
-                                className="form-control" 
-                                placeholder="Email" 
-                                onChange={this.handerFiledInput}
+            <div className="login-page">
+                <div className="form">
+                    <form className="login-form" onSubmit={this.validateAndSubmit} method="post">
+                        <h1>Login</h1>
+                        <strong>{this.state.errorFromServer}</strong>
+                        <input
+                            type="text"
+                            name="email"
+                            placeholder="Email"
+                            onChange={this.handerFiledInput}
                             />
-                            <span className="glyphicon glyphicon-envelope form-control-feedback"></span>
-                        </div>
                         { errors.has('email') &&
                             <label id="name-error" className="error" htmlFor="email">{ errors.first('email') }</label>
                         }
-                        <div className="form-group has-feedback">
-                            <input 
-                                type="password" 
-                                name="password"
-                                className="form-control" 
-                                placeholder="Password"
-                                onChange={this.handerFiledInput} 
-                                />
-                            <span className="glyphicon glyphicon-lock form-control-feedback"></span>
-                        </div>
+                        <input 
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            onChange={this.handerFiledInput}
+                            />
                         { errors.has('password') &&
                             <label id="name-error" className="error" htmlFor="email">{ errors.first('password') }</label>
                         }
-                        <div className="row">
-                            <div className="col-xs-8">
-                            <div className="checkbox icheck">
-                                <label>
-                                <input type="checkbox" /> Remember Me
-                                </label>
-                            </div>
-                            </div>
-                            <div className="col-xs-4">
-                                <button type="submit" className="btn btn-primary btn-block btn-flat">Sign In</button>
-                            </div>
-                        </div>
+                        <button type="submit">login</button>
+                        <p className="message">Not registered? <Link to={'/register'}>Create an account</Link></p>
                     </form>
-                    <Link to={"/register"} className="text-center">Register a new membership</Link>
                 </div>
             </div>
+            // <div className="login-box">
+            //     <div className="login-logo">
+            //         <a href=""><b>Admin</b>LTE</a>
+            //     </div>
+            //     <div className="login-box-body">
+            //         <p className="login-box-msg">Sign in to start your session</p>
+            //         <strong>{this.state.errorFromServer}</strong>
+            //         <form onSubmit={this.validateAndSubmit} method="post">
+            //             <div className="form-group has-feedback">
+            //                 <input 
+            //                     type="text" 
+            //                     name="email"
+            //                     className="form-control" 
+            //                     placeholder="Email" 
+            //                     onChange={this.handerFiledInput}
+            //                 />
+            //                 <span className="glyphicon glyphicon-envelope form-control-feedback"></span>
+            //             </div>
+            //             { errors.has('email') &&
+            //                 <label id="name-error" className="error" htmlFor="email">{ errors.first('email') }</label>
+            //             }
+            //             <div className="form-group has-feedback">
+            //                 <input 
+            //                     type="password" 
+            //                     name="password"
+            //                     className="form-control" 
+            //                     placeholder="Password"
+            //                     onChange={this.handerFiledInput} 
+            //                     />
+            //                 <span className="glyphicon glyphicon-lock form-control-feedback"></span>
+            //             </div>
+            //             { errors.has('password') &&
+            //                 <label id="name-error" className="error" htmlFor="email">{ errors.first('password') }</label>
+            //             }
+            //             <div className="row">
+            //                 <div className="col-xs-8">
+            //                 <div className="checkbox icheck">
+            //                     <label>
+            //                     <input type="checkbox" /> Remember Me
+            //                     </label>
+            //                 </div>
+            //                 </div>
+            //                 <div className="col-xs-4">
+            //                     <button type="submit" className="btn btn-primary btn-block btn-flat">Sign In</button>
+            //                 </div>
+            //             </div>
+            //         </form>
+            //         <Link to={"/register"} className="text-center">Register a new membership</Link>
+            //     </div>
+            // </div>
         )
     }
 }

@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {Link} from "react-router";
 class ItemRelatedPost extends Component {
     render() {
-        return(
+        return (
             <div className="item-related">
                 <Link to={"/post/" + this.props.post.slug}>
                     <img width="500" height="380" src={this.props.post.avatar} className="attachment-misc-thumb size-misc-thumb wp-post-image" alt="naturetrip" />

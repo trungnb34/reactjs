@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import RelatedPost from "./relatedPost";
 import BaseAPI from "../service/BaseAPI";
 import * as detailPost from "../../actions/detail";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 
 class Detail extends Component {
     constructor(props) {
@@ -40,16 +40,15 @@ class Detail extends Component {
                         <p dangerouslySetInnerHTML={{ __html: this.state.post.content }} >
                         </p>
                     </div>
-                    <div className="post-meta">                                                                                                      
+                    <div className="post-meta">
                         <div className="post-share">
                             <p>Hãy chia sẻ bài viết đến bạn bè của bạn:</p>
-                            {/* <strong>123456</strong> */}
                             <a target="_blank" href="#">
-                                <div className="fb-share-button" data-href="http://localhost:3000" data-layout="button" data-size="small" data-mobile-iframe="true"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A3000%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"></a>
+                                <div className="fb-share-button" data-href="http://localhost:3000" data-layout="button" data-size="small" data-mobile-iframe="true"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A3000%2F&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore"></a>
                                 </div>
                             </a>
                             <a target="_blank" href="#">
-                                <div class="g-plus" data-action="share"></div>
+                                <div className="g-plus" data-action="share"></div>
                             </a>
                         </div>
                     </div>

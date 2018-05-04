@@ -52,4 +52,6 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/album', 'Admin\HandlerImageController@list')->name('album');
 
     Route::get('/album-detail/{slug}', 'Admin\HandlerImageController@detail');
+
+    Route::get('/profile', 'User\UserController@profile');
 });

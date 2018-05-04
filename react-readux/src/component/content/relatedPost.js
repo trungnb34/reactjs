@@ -11,6 +11,7 @@ class RelatedPost extends Component {
             posts: []
         }
     }
+    
     componentWillReceiveProps(newProps) {
         BaseAPI.get('get-relate-post/' + newProps.cate).then(posts => {
             this.setState({posts: posts.data.posts});

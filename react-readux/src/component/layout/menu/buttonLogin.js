@@ -14,6 +14,7 @@ class ButtonLogin extends Component {
             return (
                 <div className="dropdown">
                     <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i className="fa fa-user icon-login" aria-hidden="true"></i>
                         {this.props.user.user.name}
                     </button>
                     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -25,6 +26,7 @@ class ButtonLogin extends Component {
         } else {
             return (
                 <Link to={"/login"}>
+                    <i className="fa fa-user icon-login" aria-hidden="true"></i>
                     DANG NHAP
                 </Link>
             )
@@ -34,9 +36,7 @@ class ButtonLogin extends Component {
     render() {
         return (
             <span className="dangNhap">
-                {
-                    this.showUserInfo()
-                }
+                { this.showUserInfo() }
             </span>
         )
     }

@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import ItemPost from "./itemPost";
+import Pagination from "./pagination";
 import {connect} from "react-redux";
 import * as listPostByCate from "../../actions/listPost";
 // import BaseAPI from "../service/BaseAPI";
@@ -7,19 +8,14 @@ import * as listPostByCate from "../../actions/listPost";
 class MainContent extends Component {
     constructor(props) {
         super(props);
-        // this.state = {
-        //     cateName: '',
-        //     posts: []
-        // }
     }
     componentDidMount() {
-        // document.title = post.data.post.title;
-        this.props.filterPostByCate(this.props.param);
+        this.props.filterPostByCate(this.props.param, 1);
     }
 
     componentWillReceiveProps(newProps) {
         if(this.props.param !== newProps.param) {
-            this.props.filterPostByCate(this.props.param);
+            this.props.filterPostByCate(this.props.param, 1);
         }
     }
 
@@ -27,9 +23,9 @@ class MainContent extends Component {
         return(
             <div id="main" className="regular category_detail">
                 <div>
-                    <h1 className="find_with">{
-                       this.props.posts.cates
-                    }</h1>
+                    <h1 className="find_with">
+                        {this.props.posts.cates}
+                    </h1>
                 </div>
                 <br />
                 {
@@ -39,6 +35,7 @@ class MainContent extends Component {
                         )
                     })
                 }
+                <Pagination cate_slug={this.props.param}/>
             </div>
         )
     }

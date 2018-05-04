@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Validator\UpdateProfileValidate;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
@@ -50,5 +51,17 @@ class UserController extends Controller
         $filePath = $user_id . '-' . $file->getClientOriginalName();
         $file->move(public_path('ckfinder/images'), $filePath);
         return $filePath;
+    }
+
+    public function profile() {
+        $user = Auth::user();
+        if(file_exists(public_path('ckfinder/images/') . $user->avatar)) {
+            $user->avatar = env('APP_URL').'/ckfinder/images/'.$user->avatar;
+        } else {
+            $user->avatar = env('APP_URL') . '/ckfinder/images/default.jpg';
+        }
+//        echo $user->avatar;
+//        dd($user);
+        return view('admin.profiles.profiles', ['user' => $user]);
     }
 }

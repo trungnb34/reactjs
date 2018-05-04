@@ -30,8 +30,8 @@
     <link rel="stylesheet" type="text/css" href="./css/component.css">
     <link rel="stylesheet" type="text/css" href="./css/PageNotFound.css">
     <link media="all" type="text/css" rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
-    
     <link rel="stylesheet" href="/css/bootstrap.min(1).css">
+    <!-- <link rel="stylesheet" href="./css/login.css"> -->
 
     <title>Home</title>
   </head>
@@ -44,6 +44,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 <script src="./js/changeImage.js"></script>
+<script src="./js/icheck.min.js"></script>
+<!-- <script>
+  alert('ok');
+</script> -->
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
@@ -53,7 +57,15 @@
 }(document, 'script', 'facebook-jssdk'));</script>
 <!-- Place this tag in your head or just before your close body tag. -->
 <script src="https://apis.google.com/js/platform.js" async defer></script>
-
+<script>
+  $(function () {
+    $('input').iCheck({
+      checkboxClass: 'icheckbox_square-blue',
+      radioClass: 'iradio_square-blue',
+      increaseArea: '20%' // optional
+    });
+  });
+</script>
   <!-- <script src="/css-js/jquery-2.1.4.min.js"></script>
   <script src="/css-js/jquery.form.js"></script>
   <script src="/css-js/scripts.js"></script>

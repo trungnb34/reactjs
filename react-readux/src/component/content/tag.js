@@ -5,7 +5,6 @@ import * as listPostByCate from "../../actions/listPost";
 import BaseAPI from "../service/BaseAPI";
 
 class Tag extends Component {
-    
     constructor(props) {
         super(props);
         this.state = {

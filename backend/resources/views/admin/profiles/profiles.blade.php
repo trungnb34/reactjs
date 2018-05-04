@@ -19,7 +19,7 @@
                     <label for="inputName" class="col-sm-2 control-label">Image</label>
                     <div class="col-sm-6">
                         <div class="imgage" style="width: 120px; height: 120px; border: 1px solid #d2d6de; border-radius: 3px;">
-                            <img src="" alt="" style="width: 120px; height: 120px;">
+                            <img src="{{ $user->avatar }}" alt="" style="width: 120px; height: 120px;">
                         </div>
                     </div>
                 </div>
@@ -27,43 +27,34 @@
                 <label for="inputEmail" class="col-sm-2 control-label">Email</label>
 
                 <div class="col-sm-6">
-                    <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                    <input value="{{ $user->email }}" type="email" class="form-control" id="inputEmail" placeholder="Email">
                 </div>
                 </div>
                 <div class="form-group">
                 <label for="inputName" class="col-sm-2 control-label">Name</label>
 
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" id="inputName" placeholder="Name">
+                    <input value="{{ $user->name }}" type="text" class="form-control" id="inputName" placeholder="Name">
                 </div>
                 </div>
                 <div class="form-group">
-                <label for="inputExperience" class="col-sm-2 control-label">Experience</label>
+                <label for="inputExperience" class="col-sm-2 control-label">Full name</label>
 
                 <div class="col-sm-6">
-                    <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
+                    <input value="{{ $user->full_name }}" type="text" class="form-control" id="inputSkills" placeholder="Skills">
                 </div>
                 </div>
                 <div class="form-group">
-                <label for="inputSkills" class="col-sm-2 control-label">Skills</label>
+                <label for="inputSkills" class="col-sm-2 control-label">Phone number</label>
 
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
+                    <input value="{{ $user->phone_number }}" type="text" class="form-control" id="inputSkills" placeholder="Skills">
                 </div>
                 </div>
                 <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <div class="checkbox">
-                    <label>
-                        <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                    </label>
-                    </div>
-                </div>
-                </div>
-                <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-danger">Submit</button>
-                </div>
+                {{--<div class="col-sm-offset-2 col-sm-10">--}}
+                    {{--<button type="submit" class="btn btn-danger">Submit</button>--}}
+                {{--</div>--}}
                 </div>
             </form>
         <!-- /.post -->

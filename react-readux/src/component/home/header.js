@@ -6,7 +6,7 @@ import {Link} from "react-router";
 class Header extends Component {
     constructor(props) {
         super(props);
-        this.logOut = this.logOut.bind(this);
+        // this.logOut = this.logOut.bind(this);
     }
     componentWillMount() {
         if(localStorage['access_token'] != undefined) {
@@ -35,18 +35,18 @@ class Header extends Component {
         }
     }
 
-    logOut(e) {
-        e.preventDefault();
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('login');
-        const url = window.location.href;
-        window.location.href = url;
-    }
+    // logOut(e) {
+    //     e.preventDefault();
+    //     localStorage.removeItem('access_token');
+    //     localStorage.removeItem('login');
+    //     const url = window.location.href;
+    //     window.location.href = url;
+    // }
 
     render() {
         return (
             <div className="header">
-                <div className="bgk_top">
+                {/* <div className="bgk_top">
                     <div className="logo text">
                         <a href="/">BEETBLOG</a>
                     </div>
@@ -62,7 +62,7 @@ class Header extends Component {
                             {this.showUserInfo()}
                         </div>
                     </div>
-                </div>
+                </div> */}
                 <div className="slogan">
                     <h1>Nơi chia sẻ và học tập kiến thức về lập trình miễn phí</h1>
                     <p>

@@ -27,7 +27,9 @@ class PostController extends Controller
         return response()->json(['posts' => $postByDate]);
     }
 
-    public function getAllPostByCate($slug) {
+    public function getAllPostByCate($slug, $index) {
+//        echo "index" . $index;
+//        die;
         $cates = Db::table('categorys')->select('id', 'name')->where('slug', $slug)->first();
         $user = Auth()->guard('api')->user();
         if($cates) {
@@ -38,6 +40,8 @@ class PostController extends Controller
                 ->select('posts.id', 'posts.created_at', 'posts.abstract', 'posts.slug', 'posts.title', 'posts.avatar', 'users.id as userId', 'users.name as userName')
                 ->where(['categorys.slug' => $slug, 'posts.status' => 1])
                 ->orWhere('categorys.parent_id', $cates->id)
+                ->limit(5)
+                ->offset(($index - 1) * 5)
                 ->get();
             $favorites = null;
             if($user) {
@@ -148,5 +152,19 @@ class PostController extends Controller
             }
         }
         return response()->json(['posts' => $posts, 'favorites' => $favorites], 200);
+    }
+
+    public function getCountPostByCate($slug) {
+        $cates = Db::table('categorys')->select('id', 'name')->where('slug', $slug)->first();
+        $count = DB::table('posts')
+            ->join('users', 'users.id', '=', 'posts.user_id')
+            ->join('category_posts', 'category_posts.post_id', '=', 'posts.id')
+            ->join('categorys', 'category_posts.category_id', '=', 'categorys.id')
+            ->select('posts.id')
+            ->where(['categorys.slug' => $slug, 'posts.status' => 1])
+            ->orWhere('categorys.parent_id', $cates->id)
+            ->count();
+        $count = $count % 5 == 0 ? $count / 5 : intval($count / 5) + 1;
+        return response()->json(['count' => $count], 200);
     }
 }

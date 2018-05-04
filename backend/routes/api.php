@@ -8,7 +8,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('get-all-category', 'User\HomeController@getAllCategory');
 
-Route::get('get-all-post-by-cate/{slug}', 'User\PostController@getAllPostByCate');
+Route::get('get-all-post-by-cate/{slug}/{index}', 'User\PostController@getAllPostByCate');
 
 Route::get('get-detail-post/{slug}', 'User\PostController@getDetailPost');
 
@@ -31,3 +31,7 @@ Route::get('add-favorite/{id}', 'User\PostController@addFavorite');
 Route::get('get-favorite', 'User\PostController@getFavorite');
 
 Route::post('update-profile', 'User\UserController@updateProfile');
+
+Route::get('get-count-post-by-cate/{slug}', 'User\PostController@getCountPostByCate');
+
+

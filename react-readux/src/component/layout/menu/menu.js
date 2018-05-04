@@ -9,11 +9,31 @@ import * as cateActions from "../../../actions/cate";
 class Menu extends Component {
     constructor(props) {
         super(props);
+        this.logOut = this.logOut.bind(this);
     }
     componentDidMount() {
         this.props.loadAllCate();
     }
-
+    logOut(e) {
+        e.preventDefault();
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('login');
+        const url = window.location.href;
+        window.location.href = url;
+    }
+    showLogout() {
+        if(localStorage['login']) {
+            return (
+                <div className="login">
+                    <div className="btn_login text">
+                        <a href="" onClick={this.logOut}>
+                            LOG OUT
+                        </a>
+                    </div>
+                </div>
+            )
+        }
+    }
     render() {
         return(
             <div id="top-bar">
@@ -32,10 +52,10 @@ class Menu extends Component {
                             }
                         </ul>
                     </div>
+                    { this.showLogout() }
                     <div className="btn_login">
                         <ButtonLogin />
                     </div>
-                    {/* <Search /> */}
                 </div>
             </div>
         )

@@ -1,11 +1,13 @@
 import React, {Component} from "react";
 import Header from "./header";
+import Menu from "../layout/menu/menu";
 import ListCate from "./listCate";
 
 class Home extends Component {
     render() {
         return (
             <div className="container-fluid landingPage">
+                <Menu />
                 <Header />
                 <ListCate />
                 <footer>

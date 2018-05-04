@@ -8,6 +8,7 @@ import DetailPost from "./post";
 import UserInfo from "./user";
 import GetFavorite from "./getFavorite";
 import UpdateProfile from "./updateProfile";
+import GetCountPostByCate from "./getCoutPost";
 
 
 import {createStore, combineReducers, compose, applyMiddleware} from "redux";
@@ -23,7 +24,8 @@ const reducers = combineReducers({
     DetailPost,
     UserInfo,
     GetFavorite,
-    UpdateProfile
+    UpdateProfile,
+    GetCountPostByCate
 });
 
 const store = createStore(reducers, applyMiddleware(thunk));
