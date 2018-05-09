@@ -10,13 +10,14 @@ class ListPost extends Component {
         this.props.loadAddTopPost();
     }
     render() {
+        console.log('top post => ', this.props.topPosts);
         return(
-            <aside id="sidebar">
-                <div id="solopine_latest_news_widget-2" className="widget solopine_latest_news_widget">
-                    <h4 className="widget-heading">
-                        <span>BÀI VIẾT MỚI NHẤT</span>
-                    </h4>
-                    <ul className="side-newsfeed">
+            <div class="widget widget-popular-post wow fadeInUp">
+                <div class="widget-content">
+                    <div class="widget-title">
+                        <h2>Bài viết mới nhất</h2>
+                    </div>
+                    <div class="widget-extra-info-holder">
                         {
                             this.props.topPosts.posts.map((post, index) => {
                                 return (
@@ -24,15 +25,9 @@ class ListPost extends Component {
                                 )
                             })
                         }
-                    </ul>
+                    </div>
                 </div>
-                <div id="tag_cloud-2" className="widget widget_tag_cloud">
-                    <h4 className="widget-heading">
-                        <span>THẺ TAG</span>
-                    </h4>
-                    <ListTag />
-                </div>
-            </aside>
+            </div>
         )
     }
 }

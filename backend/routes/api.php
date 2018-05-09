@@ -34,4 +34,6 @@ Route::post('update-profile', 'User\UserController@updateProfile');
 
 Route::get('get-count-post-by-cate/{slug}', 'User\PostController@getCountPostByCate');
 
+Route::get('get-post-common/{index}', 'User\PostController@getPostCommon');
+
 

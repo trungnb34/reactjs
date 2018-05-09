@@ -60,8 +60,12 @@ class UserController extends Controller
         } else {
             $user->avatar = env('APP_URL') . '/ckfinder/images/default.jpg';
         }
-//        echo $user->avatar;
-//        dd($user);
         return view('admin.profiles.profiles', ['user' => $user]);
     }
+
+    public function getPostCommon($index) {
+        $posts = DB::table('posts')->get();
+        dd($posts);
+    }
+
 }

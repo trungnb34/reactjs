@@ -9,15 +9,23 @@ class ListTag extends Component {
         this.props.loadListTag();
     }
     render() {
+        console.log(this.props.tags);
         return(
-            <div  className="tagcloud">
-            {
-                this.props.tags.tags.map((tag, index) => {
-                    return (
-                        <Link to={"/tag/" + tag.slug} key={index} className="tag-link-4 tag-link-position-1 css-style" title="1 topic">{tag.name} </Link>
-                    )
-                })
-            }
+            <div class="widget widget-category wow fadeInUp">
+                <div class="widget-content">
+                    <div class="widget-title">
+                        <h2>Tag</h2>
+                    </div>
+                    <div class="widget-extra-info-holder">
+                        {
+                            this.props.tags.tags.map((tag, index) => {
+                                return (
+                                    <Link key={index} to={"/tag/" + tag.slug} class="btn btn-success item-tag">{tag.name}</Link>
+                                )
+                            })
+                        }
+                    </div>
+                </div>
             </div>
         )
     }

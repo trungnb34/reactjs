@@ -4,7 +4,7 @@ import axios from "axios";
 import {Link} from "react-router";
 import Validator from 'ree-validate';
 import classnames from 'classnames';
-import * as CSS from 'http://fonts.googleapis.com/css?family=Roboto:300,400';
+// import "./login.css";
 
 class Login extends Component {
     constructor(props) {

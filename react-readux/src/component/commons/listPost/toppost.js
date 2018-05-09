@@ -4,21 +4,17 @@ import {Link} from "react-router";
 class TopPost extends Component {
     render() {
         return(
-            <li>
-                <div className="side-item">
-                    <div className="side-image">
-                        <Link to={"/post/" + this.props.post.slug} rel="bookmark">
-                            <img width="500" height="380" src={this.props.post.avatar} alt="iOS Databases: SQLite vs. Core Data vs. Realm" />
-                        </Link>
-                    </div>
-                    <div className="side-item-text">
-                        <h4>
-                            <Link to={"/post/" + this.props.post.slug} rel="bookmark" className="title">{this.props.post.title} </Link>
-                        </h4>
-                        <span className="side-item-meta"></span>
-                    </div>
+            <div class="widget-posts">
+                <div class="post-thumb">
+                    <img src={this.props.post.avatar} alt="....."/>
                 </div>
-            </li>
+                <div class="post-title">
+                    <h5><Link to={"/post/" + this.props.post.slug}>{this.props.post.title}</Link></h5>
+                </div>
+                <div class="post-view-count post-meta">
+                    <p>865 <span>Views</span></p>
+                </div>
+            </div>
         )
     }
 }
